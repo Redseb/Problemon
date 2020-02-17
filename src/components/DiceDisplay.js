@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 const DiceDisplay = ({
   invisibility,
@@ -10,6 +11,17 @@ const DiceDisplay = ({
 }) => {
   const numDiceGif = require("../../assets/images/diceNumGif.gif");
   const numDice1 = require("../../assets/images/d1.png");
+  const numDice2 = require("../../assets/images/d2.png");
+  const numDice3 = require("../../assets/images/d3.png");
+  const numDice4 = require("../../assets/images/d4.png");
+  const numDice5 = require("../../assets/images/d5.png");
+  const numDice6 = require("../../assets/images/d6.png");
+  const diceNums = [numDice1, numDice2, numDice3, numDice4, numDice5, numDice6];
+  const typeDiceGif = require("../../assets/images/diceTypeGif.gif");
+  const typeDiceIntegrate = require("../../assets/images/dIntegral.png");
+  const typeDiceDerive = require("../../assets/images/dDerive.png");
+  const typeDiceCalculate = require("../../assets/images/dCalculate.png");
+  const diceTypes = [typeDiceDerive, typeDiceIntegrate, typeDiceCalculate];
 
   const [isRolling, setIsRolling] = useState(true);
   const [diceImage, setDiceImage] = useState(numDiceGif);
@@ -19,30 +31,48 @@ const DiceDisplay = ({
     if (isRolling) {
       if (diceStatus == 1) {
         setSubtitle("Rolling Type of Problem...");
-        setDiceImage(numDiceGif);
+        setDiceImage(typeDiceGif);
       } else {
         setSubtitle("Rolling Number...");
-        setDiceImage(numDice1);
+        setDiceImage(numDiceGif);
       }
-    } else {
-      setSubtitle(diceResult);
     }
   }, []);
-
   if (invisibility === true) {
     return null;
   } else {
-    if (isRolling) {
+    if (isRolling && diceStatus == 1) {
+      //Type Dice
       setTimeout(() => {
-        setDiceResult(Math.floor(Math.random() * 6));
-        setDiceImage(numDice1);
+        const result = Math.ceil(Math.random() * 3);
         setIsRolling(false);
-      }, 1000);
+        setDiceResult(result);
+        setDiceImage(diceTypes[result - 1]);
+        if (result === 1) {
+          setSubtitle("Derive");
+        } else if (result === 2) {
+          setSubtitle("Integrate");
+        } else {
+          //3
+          setSubtitle("Calculate");
+        }
+        console.log("Type: ", result);
+      }, 3000);
+    } else if (isRolling && diceStatus == 2) {
+      //Number Dice
+      setTimeout(() => {
+        const result = Math.ceil(Math.random() * 6);
+        setIsRolling(false);
+        setDiceResult(result);
+        setDiceImage(diceNums[result - 1]);
+        setSubtitle(result);
+        console.log("Number: ", result);
+      }, 3500);
     }
     return (
       <View style={styles.container}>
         <Image source={diceImage} style={styles.image} />
-        <Text>{subtitle}</Text>
+        <Text style={styles.text}>{subtitle}</Text>
       </View>
     );
   }
@@ -57,6 +87,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     alignSelf: "center"
+  },
+  text: {
+    alignSelf: "center",
+    fontFamily: "pixel"
   }
 });
 

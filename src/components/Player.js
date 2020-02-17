@@ -7,6 +7,7 @@ const Player = ({ func, health, index }) => {
   return (
     <View style={styles.container}>
       <Text style={index === "P1" ? styles.funcStyle1 : styles.funcStyle2}>
+        {index === "P1" ? "f(x) = " : "g(x) = "}
         {func}
       </Text>
       <HealthIndicator health={health} />

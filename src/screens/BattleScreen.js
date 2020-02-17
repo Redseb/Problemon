@@ -14,14 +14,17 @@ import ValueInputter from "../components/Player/ValueInputter";
 import DiceDisplay from "../components/DiceDisplay";
 //Utils
 import { damageHealth } from "../util/playerFunctions";
+import { showMessage } from "react-native-flash-message";
 
 const WIDTH = Dimensions.get("window").width;
 const BattleScreen = ({ navigation }) => {
   //Game State
   const [gameOver, setGameOver] = useState(false);
   const [isAwaitingInput, setIsAwaitingInput] = useState(false);
-  const [diceStatus, setDiceStatus] = useState(1); //1: (calc, derivative, integrate) 2:(1,2,3,4,5,6)
-  const [diceResult, setDiceResult] = useState(0);
+  const [diceStatusType, setDiceStatusType] = useState(1); //1: (calc, derivative, integrate) 2:(1,2,3,4,5,6)
+  const [diceResultType, setDiceResultType] = useState(0);
+  const [diceStatusNum, setDiceStatusNum] = useState(2); //1: (calc, derivative, integrate) 2:(1,2,3,4,5,6)
+  const [diceResultNum, setDiceResultNum] = useState(0);
   //Player State
   const [healthP2, setHealthP2] = useState(100);
   const [funcP2, setFuncP2] = useState("x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
@@ -40,16 +43,26 @@ const BattleScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Player func={funcP2} health={healthP2} index={"P2"} />
-      <DiceDisplay
-        invisibility={isAwaitingInput}
-        diceStatus={diceStatus}
-        setDiceStatus={setDiceStatus}
-        setDiceResult={setDiceResult}
-        diceResult={diceResult}
-      />
+      <View style={styles.diceContainer}>
+        <DiceDisplay
+          invisibility={isAwaitingInput}
+          diceStatus={diceStatusType}
+          setDiceStatus={setDiceStatusType}
+          setDiceResult={setDiceResultType}
+          diceResult={diceResultType}
+        />
+        <DiceDisplay
+          invisibility={isAwaitingInput}
+          diceStatus={diceStatusNum}
+          setDiceStatus={setDiceStatusNum}
+          setDiceResult={setDiceResultNum}
+          diceResult={diceResultNum}
+        />
+      </View>
       <KeyboardAvoidingView behavior="padding">
-        <Player func={funcP1} health={healthP1} index={"P1"} />
         <ValueInputter />
+
+        <Player func={funcP1} health={healthP1} index={"P1"} />
       </KeyboardAvoidingView>
     </View>
   );
@@ -59,6 +72,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between"
+  },
+  diceContainer: {
+    flexDirection: "column"
   }
 });
 

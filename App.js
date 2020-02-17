@@ -7,6 +7,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import TitleScreen from "./src/screens/TitleScreen";
 import BattleScreen from "./src/screens/BattleScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
+//Flash Message
+import FlashMessage from "react-native-flash-message";
 
 //Create Navigator
 const navigator = createStackNavigator(
@@ -52,7 +54,12 @@ export default () => {
   }, []);
 
   if (fontsLoaded) {
-    return <App />;
+    return (
+      <>
+        <App />
+        <FlashMessage position="top" />
+      </>
+    );
   } else {
     return <LoadingScreen />;
   }
