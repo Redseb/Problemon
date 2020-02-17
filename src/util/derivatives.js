@@ -187,13 +187,12 @@ function integralOf(expression) {
     signs[S++] = matched[1];
   }
 
-  console.log(
-    signs.toString() + " " + coefs.toString() + " " + powers.toString()
-  );
-
   const integratedX = integrateX(coefs, powers);
 
-  var answer = integratedX[0];
+  var answer = "";
+  if (integratedX[0] != null) {
+    answer = integratedX[0];
+  }
 
   for (let i = 1; i < integratedX.length; i++) {
     answer = answer + signs[i] + integratedX[i];
@@ -215,14 +214,10 @@ function integralOf(expression) {
   const constReg = new RegExp("([?\\+ | ?-]\\s*)*(\\d+)", "g");
 
   while ((matched = constReg.exec(expressionNumbersOnly)) != null) {
-    if (matched[1] == null) {
-      signsConsts[SC++] = "+";
-    } else signsConsts[SC++] = matched[1];
+    signsConsts[SC++] = matched[1];
 
     numbers[N++] = matched[2];
   }
-
-  console.log(numbers);
 
   for (let i = 0; i < numbers.length; i++) {
     var integralOfConst = signsConsts + numbers[i] + "x";
@@ -249,7 +244,7 @@ function integrateX(coefs, powers) {
   var finalPower = 0;
   for (let i = 0; i < powers.length; i++) {
     finalPower = powers[i] * 1 + 1;
-    var finalCoef = Math.round(coefs[i] / finalPower, 2);
+    var finalCoef = Number((coefs[i] / finalPower).toFixed(2));
     if (finalCoef == 1) {
       finalCoef = "";
     }

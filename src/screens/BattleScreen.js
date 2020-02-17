@@ -30,7 +30,7 @@ const BattleScreen = ({ navigation }) => {
 
   //Player State
   const [healthP2, setHealthP2] = useState(100);
-  const [funcP2, setFuncP2] = useState("3x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
+  const [funcP2, setFuncP2] = useState("4x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
   const [healthP1, setHealthP1] = useState(100);
   const [funcP1, setFuncP1] = useState("20x"); //TODO: RANDOMIZE STARTING FUNCTIONS
 
@@ -40,7 +40,6 @@ const BattleScreen = ({ navigation }) => {
   //     setGameOver(true);
   //   }, []);
   if (gameOver) {
-    alert("Game Over!");
     navigation.navigate("Title");
   }
   return (
@@ -84,6 +83,7 @@ const BattleScreen = ({ navigation }) => {
           setIsAwaitingInput={setIsAwaitingInput}
           isRolling={isRolling}
           setIsRolling={setIsRolling}
+          setGameOver={setGameOver}
         />
         <Player func={funcP1} health={healthP1} index={"P1"} />
       </KeyboardAvoidingView>
@@ -94,7 +94,8 @@ const BattleScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "#cfc7c7"
   },
   diceContainer: {
     flexDirection: "column"

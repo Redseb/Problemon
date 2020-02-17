@@ -6,9 +6,15 @@ import {
   integralOf,
   compareIntegrals
 } from "../util/derivatives";
-export const damageHealth = (health, setHealth, damage) => {
+import { showMessage } from "react-native-flash-message";
+export const damageHealth = (health, setHealth, damage, setGameOver) => {
   console.log("New Health", health - damage);
-  setHealth(health - damage);
+  setHealth(health - Math.abs(damage));
+  if (health <= 0) {
+    console.log("health <= 0");
+    alert("Gameover");
+    setGameOver(true);
+  }
 };
 
 export const checkAnswer = (
@@ -26,6 +32,7 @@ export const checkAnswer = (
   setIsAwaitingInput,
   isRolling,
   setIsRolling,
+  setGameOver,
   answer
 ) => {
   switch (type) {
@@ -37,8 +44,16 @@ export const checkAnswer = (
       );
       if (compareDerivative(answer, funcP2) == true) {
         setFuncP2(derivativeOf(funcP2));
+        showMessage({
+          message: "Correct Derivative!",
+          backgroundColor: "#5a70e0"
+        });
       } else {
         setFuncP1(derivativeOf(funcP1));
+        showMessage({
+          message: "Incorrect Derivative!",
+          backgroundColor: "#a93331"
+        });
       }
       break;
     case 2:
@@ -49,8 +64,16 @@ export const checkAnswer = (
       );
       if (compareIntegrals(answer, funcP2) == true) {
         setFuncP1(integralOf(funcP1));
+        showMessage({
+          message: "Correct Integral!",
+          backgroundColor: "#5a70e0"
+        });
       } else {
         setFuncP2(integralOf(funcP2));
+        showMessage({
+          message: "Incorrect Integral!",
+          backgroundColor: "#a93331"
+        });
       }
       break;
     default:
@@ -61,8 +84,16 @@ export const checkAnswer = (
       );
       if (compareCalculation(answer, funcP2, num) == true) {
         damageHealth(healthP2, setHealthP2, calculate(funcP2, num));
+        showMessage({
+          message: "Correct Calculation!",
+          backgroundColor: "#5a70e0"
+        });
       } else {
         damageHealth(healthP1, setHealthP1, calculate(funcP2, num));
+        showMessage({
+          message: "Incorrect Calculation!",
+          backgroundColor: "#a93331"
+        });
       }
       break;
   }

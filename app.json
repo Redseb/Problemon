@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Gamejam Calculus game!",
+    "githubUrl": "https://github.com/Redseb/Problemon"
   }
 }

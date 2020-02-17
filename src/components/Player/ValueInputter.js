@@ -18,7 +18,8 @@ const ValueInputter = ({
   isAwaitingInput,
   setIsAwaitingInput,
   isRolling,
-  setIsRolling
+  setIsRolling,
+  setGameOver
 }) => {
   const [value, setValue] = useState("");
   return (
@@ -28,6 +29,7 @@ const ValueInputter = ({
         autoCorrect={false}
         autoCapitalize={"none"}
         placeholder="Enter Function or Value"
+        placeholderTextColor="#ffffff"
         value={value}
         onChange={text => {
           setValue(text.nativeEvent.text);
@@ -49,6 +51,7 @@ const ValueInputter = ({
             setIsAwaitingInput,
             isRolling,
             setIsRolling,
+            setGameOver,
             value
           );
         }}

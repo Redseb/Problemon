@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image,
   StyleSheet,
   Dimensions
 } from "react-native";
@@ -13,7 +14,11 @@ const TitleScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.textTitle}>PROBLEMON</Text>
+        {/* <Text style={styles.textTitle}>PROBLEMON</Text> */}
+        <Image
+          source={require("../../assets/images/logo.png")}
+          style={styles.image}
+        />
         <Text style={styles.text}>
           A Game created in 24 hours by Abdullah, Maxim, and Miko
         </Text>
@@ -32,7 +37,7 @@ const TitleScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#cfc7c7",
     flex: 1,
     justifyContent: "space-evenly"
   },
@@ -62,6 +67,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#ffffff",
     fontFamily: "pixel"
+  },
+  image: {
+    alignSelf: "center",
+    marginBottom: 10
   }
 });
 
