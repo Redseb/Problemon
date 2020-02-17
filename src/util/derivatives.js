@@ -79,10 +79,10 @@ function calculate(expression, value) {
   var expressionNumbersOnly = expression;
 
   while ((matched = expWithXsReg.exec(expression)) != null) {
-    if (matched[1] == undefined) {
+    if (matched[1] == null) {
       signs[S++] = "+";
     } else {
-      signs[S++] = matched[1];
+      signs[S++] = matched[1].trim();
     }
 
     if (matched[2] == null) {
@@ -108,8 +108,6 @@ function calculate(expression, value) {
   const constReg = new RegExp("([?\\+ | ?-]\\s*)*(\\d+)", "g");
 
   while ((matched = constReg.exec(expressionNumbersOnly)) != null) {
-    console.log(matched[1] + matched[2]);
-
     if (matched[1] == null) {
       signsConsts[SC++] = "+";
     } else signsConsts[SC++] = matched[1];
@@ -118,26 +116,36 @@ function calculate(expression, value) {
   }
 
   var answer = 0;
+  var unit = 0;
+
+  console.log(
+    coefs.toString() + " " + powers.toString() + " " + signs.toString()
+  );
 
   for (let i = 0; i < coefs.length; i++) {
-    const unit = coefs[i] * Math.pow(value, powers[i]);
+    unit = coefs[i] * Math.pow(value, powers[i]);
 
     if (signs[i] == "+") {
-      console.log(signs[i]);
-      answer = answer + unit;
+      answer += unit;
+      console.log(i + " " + answer);
     } else {
-      console.log(signs[i]);
-      answer = answer - unit;
+      answer -= unit;
+      console.log(i + " " + answer);
     }
   }
 
   for (let i = 0; i < numbers.length; i++) {
+    console.log("LAJKDSF");
     if (signsConsts == "+") {
-      answer += numbers[i];
-    } else answer -= numbers[i];
+      answer += numbers[i] * 1;
+    } else {
+      answer -= numbers[i] * 1;
+    }
   }
 
-  console.log(answer);
+  console.log(expression + " (" + value + ") = " + answer.toString());
+
+  return answer.toString();
 }
 
 function compareDerivative(userAnswer, func) {
@@ -151,7 +159,7 @@ function compareDerivative(userAnswer, func) {
 
 function compareCalculation(userAnswer, func, value) {
   const correctCalculation = calculate(func, value);
-  console.log("CorrectCalc", correctCalculation); //UNDEFINED
+  console.log("CorrectCalc", correctCalculation);
   if (userAnswer == correctCalculation) {
     return true;
   } else return false;
