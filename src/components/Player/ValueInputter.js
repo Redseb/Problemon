@@ -14,7 +14,11 @@ const ValueInputter = ({
   healthP1,
   healthP2,
   setHealthP1,
-  setHealthP2
+  setHealthP2,
+  isAwaitingInput,
+  setIsAwaitingInput,
+  isRolling,
+  setIsRolling
 }) => {
   const [value, setValue] = useState("");
   return (
@@ -41,6 +45,10 @@ const ValueInputter = ({
             setHealthP1,
             healthP2,
             setHealthP2,
+            isAwaitingInput,
+            setIsAwaitingInput,
+            isRolling,
+            setIsRolling,
             value
           );
         }}

@@ -165,7 +165,110 @@ function compareCalculation(userAnswer, func, value) {
   } else return false;
 }
 
+function integralOf(expression) {
+  const xToPowerReg = new RegExp(
+    "([?\\+ | ?-]\\s*)*([0-9]+)*x\\^*([0-9]+)*",
+    "g"
+  );
+
+  var coefs = [];
+  var C = 0;
+
+  var powers = [];
+  var P = 0;
+
+  var signs = [];
+  var S = 0;
+
+  var matched;
+  while ((matched = xToPowerReg.exec(expression)) != null) {
+    coefs[C++] = matched[2];
+    powers[P++] = matched[3];
+    signs[S++] = matched[1];
+  }
+
+  console.log(
+    signs.toString() + " " + coefs.toString() + " " + powers.toString()
+  );
+
+  const integratedX = integrateX(coefs, powers);
+
+  var answer = integratedX[0];
+
+  for (let i = 1; i < integratedX.length; i++) {
+    answer = answer + signs[i] + integratedX[i];
+  }
+
+  var expressionNumbersOnly = expression;
+
+  expressionNumbersOnly = expressionNumbersOnly.replace(
+    /([?\+ | ?-]\s*)*(\d+)*x\^*(\d+)*/g,
+    ""
+  );
+
+  var signsConsts = [];
+  var SC = 0;
+
+  var numbers = [];
+  var N = 0;
+
+  const constReg = new RegExp("([?\\+ | ?-]\\s*)*(\\d+)", "g");
+
+  while ((matched = constReg.exec(expressionNumbersOnly)) != null) {
+    if (matched[1] == null) {
+      signsConsts[SC++] = "+";
+    } else signsConsts[SC++] = matched[1];
+
+    numbers[N++] = matched[2];
+  }
+
+  console.log(numbers);
+
+  for (let i = 0; i < numbers.length; i++) {
+    var integralOfConst = signsConsts + numbers[i] + "x";
+    answer += integralOfConst;
+  }
+
+  answer = answer.toString().replace(/\s/g, "");
+
+  return answer;
+}
+
+function integrateX(coefs, powers) {
+  for (let i = 0; i < coefs.length; i++) {
+    if (coefs[i] == null) {
+      coefs[i] = 1;
+    }
+
+    if (powers[i] == null) {
+      powers[i] = 1;
+    }
+  }
+
+  var integratedX = [];
+  var finalPower = 0;
+  for (let i = 0; i < powers.length; i++) {
+    finalPower = powers[i] * 1 + 1;
+    var finalCoef = Math.round(coefs[i] / finalPower, 2);
+    if (finalCoef == 1) {
+      finalCoef = "";
+    }
+    integratedX[i] = finalCoef + "x^" + finalPower;
+  }
+
+  return integratedX;
+}
+
+function compareIntegrals(userAnswer, func) {
+  const correctIntegral = integralOf(func);
+  if (userAnswer == correctIntegral) {
+    return true;
+  } else return false;
+}
+
 module.exports.derivativeOf = derivativeOf;
 module.exports.calculate = calculate;
 module.exports.compareDerivative = compareDerivative;
 module.exports.compareCalculation = compareCalculation;
+module.exports.integralOf = integralOf;
+module.exports.compareIntegrals = compareIntegrals;

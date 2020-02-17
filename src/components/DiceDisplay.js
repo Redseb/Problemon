@@ -3,11 +3,14 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 const DiceDisplay = ({
-  invisibility,
+  isAwaitingInput,
   diceStatus,
   setDiceStatus,
   setDiceResult,
-  diceResult
+  diceResult,
+  setIsAwaitingInput,
+  isRolling,
+  setIsRolling
 }) => {
   const numDiceGif = require("../../assets/images/diceNumGif.gif");
   const numDice1 = require("../../assets/images/d1.png");
@@ -23,7 +26,8 @@ const DiceDisplay = ({
   const typeDiceCalculate = require("../../assets/images/dCalculate.png");
   const diceTypes = [typeDiceDerive, typeDiceIntegrate, typeDiceCalculate];
 
-  const [isRolling, setIsRolling] = useState(true);
+  // const [isRolling, setIsRolling] = useState(isAwaitingInput);
+  console.log("isRolling...", isRolling);
   const [diceImage, setDiceImage] = useState(numDiceGif);
   const [subtitle, setSubtitle] = useState("Dice");
 
@@ -37,45 +41,47 @@ const DiceDisplay = ({
         setDiceImage(numDiceGif);
       }
     }
-  }, []);
-  if (invisibility === true) {
-    return null;
-  } else {
-    if (isRolling && diceStatus == 1) {
-      //Type Dice
-      setTimeout(() => {
-        const result = Math.ceil(Math.random() * 3);
-        setIsRolling(false);
-        setDiceResult(result);
-        setDiceImage(diceTypes[result - 1]);
-        if (result === 1) {
-          setSubtitle("Derive");
-        } else if (result === 2) {
-          setSubtitle("Integrate");
-        } else {
-          //3
-          setSubtitle("Calculate");
-        }
-        console.log("Type: ", result);
-      }, 3000);
-    } else if (isRolling && diceStatus == 2) {
-      //Number Dice
-      setTimeout(() => {
-        const result = Math.ceil(Math.random() * 6);
-        setIsRolling(false);
-        setDiceResult(result);
-        setDiceImage(diceNums[result - 1]);
-        setSubtitle(result);
-        console.log("Number: ", result);
-      }, 3500);
-    }
-    return (
-      <View style={styles.container}>
-        <Image source={diceImage} style={styles.image} />
-        <Text style={styles.text}>{subtitle}</Text>
-      </View>
-    );
+  });
+  // if (invisibility === true) {
+  //   return null;
+  // } else {
+  if (isRolling && diceStatus == 1) {
+    //Type Dice
+    setTimeout(() => {
+      const result = Math.ceil(Math.random() * 3);
+      setIsRolling(false);
+      setDiceResult(result);
+      setDiceImage(diceTypes[result - 1]);
+      if (result === 1) {
+        setSubtitle("Derive");
+      } else if (result === 2) {
+        setSubtitle("Integrate");
+      } else {
+        //3
+        setSubtitle("Calculate");
+      }
+      console.log("Type: ", result);
+      setIsAwaitingInput(true);
+    }, 3000);
+  } else if (isRolling && diceStatus == 2) {
+    //Number Dice
+    setTimeout(() => {
+      const result = Math.ceil(Math.random() * 6);
+      setIsRolling(false);
+      setDiceResult(result);
+      setDiceImage(diceNums[result - 1]);
+      setSubtitle(result);
+      console.log("Number: ", result);
+      setIsAwaitingInput(true);
+    }, 3500);
   }
+  return (
+    <View style={styles.container}>
+      <Image source={diceImage} style={styles.image} />
+      <Text style={styles.text}>{subtitle}</Text>
+    </View>
+  );
+  // }
 };
 
 const styles = StyleSheet.create({

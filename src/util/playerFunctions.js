@@ -2,7 +2,9 @@ import {
   compareDerivative,
   derivativeOf,
   compareCalculation,
-  calculate
+  calculate,
+  integralOf,
+  compareIntegrals
 } from "../util/derivatives";
 export const damageHealth = (health, setHealth, damage) => {
   console.log("New Health", health - damage);
@@ -20,6 +22,10 @@ export const checkAnswer = (
   setHealthP1,
   healthP2,
   setHealthP2,
+  isAwaitingInput,
+  setIsAwaitingInput,
+  isRolling,
+  setIsRolling,
   answer
 ) => {
   switch (type) {
@@ -37,6 +43,15 @@ export const checkAnswer = (
       break;
     case 2:
       console.log("Integral check");
+      console.log(
+        `compare question: ${funcP2} with answer: ${answer}`,
+        compareIntegrals(answer, funcP2)
+      );
+      if (compareIntegrals(answer, funcP2) == true) {
+        setFuncP1(integralOf(funcP1));
+      } else {
+        setFuncP2(integralOf(funcP2));
+      }
       break;
     default:
       console.log("Calculate check");
@@ -51,4 +66,7 @@ export const checkAnswer = (
       }
       break;
   }
+  //REROLL DICE
+  setIsAwaitingInput(true);
+  setIsRolling(true);
 };
