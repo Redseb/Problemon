@@ -1,27 +1,42 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 const WIDTH = Dimensions.get("window").width;
 
 const HealthIndicator = ({ health }) => {
+  let color = "green";
+  if (health <= 50 && health >= 25) {
+    color = "yellow";
+  } else if (health < 25) {
+    color = "red";
+  }
   return (
-    <View style={styles.container}>
-      <View style={styles.inner}></View>
+    <View>
+      <View style={styles.borderHealthBar}>
+        <View
+          style={{
+            width: (health / 100) * (WIDTH - 110),
+            backgroundColor: color,
+            height: 10
+          }}
+        ></View>
+      </View>
+      <Text style={styles.text}>{health} / 100</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  borderHealthBar: {
     borderColor: "#000000",
     borderWidth: 5,
     width: WIDTH - 100,
     alignSelf: "center"
   },
-  inner: {
-    backgroundColor: "green",
-    height: 10,
-    width: WIDTH - 100 - 10
+  text: {
+    fontFamily: "pixel",
+    fontSize: 10,
+    alignSelf: "center"
   }
 });
 

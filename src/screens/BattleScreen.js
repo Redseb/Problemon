@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,10 +10,15 @@ import Player from "../components/Player";
 
 const WIDTH = Dimensions.get("window").width;
 const BattleScreen = () => {
+  const [healthP2, setHealthP2] = useState(100);
+  const [funcP2, setFuncP2] = useState("x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
+  const [healthP1, setHealthP1] = useState(100);
+  const [funcP1, setFuncP1] = useState("20x");
+
   return (
     <View style={styles.container}>
-      <Player func={"x^2"} health={70} />
-      <Player func={"20x"} health={20} />
+      <Player func={funcP2} health={healthP2} />
+      <Player func={funcP1} health={healthP1} />
     </View>
   );
 };
