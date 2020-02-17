@@ -5,8 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
-  Keyboard
+  Dimensions
 } from "react-native";
 //Components
 import Player from "../components/Player";
@@ -27,7 +26,7 @@ const BattleScreen = ({ navigation }) => {
   const [diceResultNum, setDiceResultNum] = useState(0);
   //Player State
   const [healthP2, setHealthP2] = useState(100);
-  const [funcP2, setFuncP2] = useState("x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
+  const [funcP2, setFuncP2] = useState("10x"); //TODO: RANDOMIZE STARTING FUNCTIONS
   const [healthP1, setHealthP1] = useState(100);
   const [funcP1, setFuncP1] = useState("20x"); //TODO: RANDOMIZE STARTING FUNCTIONS
 
@@ -60,8 +59,18 @@ const BattleScreen = ({ navigation }) => {
         />
       </View>
       <KeyboardAvoidingView behavior="padding">
-        <ValueInputter />
-
+        <ValueInputter
+          diceResultType={diceResultType}
+          diceResultNum={diceResultNum}
+          funcP2={funcP2}
+          setFuncP2={setFuncP2}
+          funcP1={funcP1}
+          setFuncP1={setFuncP1}
+          healthP1={healthP1}
+          healthP2={healthP2}
+          setHealthP1={setHealthP1}
+          setHealthP2={setHealthP2}
+        />
         <Player func={funcP1} health={healthP1} index={"P1"} />
       </KeyboardAvoidingView>
     </View>

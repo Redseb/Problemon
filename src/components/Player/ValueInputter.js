@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Dimensions } from "react-native";
+import { checkAnswer } from "../../util/playerFunctions";
 
 const WIDTH = Dimensions.get("window").width;
 
-const ValueInputter = () => {
+const ValueInputter = ({
+  diceResultType,
+  diceResultNum,
+  funcP2,
+  setFuncP2,
+  funcP1,
+  setFuncP1,
+  healthP1,
+  healthP2,
+  setHealthP1,
+  setHealthP2
+}) => {
+  const [value, setValue] = useState("");
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         autoCorrect={false}
+        autoCapitalize={"none"}
         placeholder="Enter Function or Value"
+        value={value}
+        onChange={text => {
+          setValue(text.nativeEvent.text);
+        }}
+        onSubmitEditing={() => {
+          console.log("Submitted", value);
+          checkAnswer(
+            diceResultType,
+            diceResultNum,
+            funcP2,
+            setFuncP2,
+            funcP1,
+            setFuncP1,
+            healthP1,
+            setHealthP1,
+            healthP2,
+            setHealthP2,
+            value
+          );
+        }}
       />
     </View>
   );
