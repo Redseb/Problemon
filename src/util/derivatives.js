@@ -184,7 +184,9 @@ function integralOf(expression) {
   while ((matched = xToPowerReg.exec(expression)) != null) {
     coefs[C++] = matched[2];
     powers[P++] = matched[3];
-    signs[S++] = matched[1];
+    if (matched[1] == null) {
+      signs[S++] = "";
+    } else signs[S++] = matched[1];
   }
 
   const integratedX = integrateX(coefs, powers);

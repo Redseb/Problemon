@@ -7,12 +7,11 @@ import {
   compareIntegrals
 } from "../util/derivatives";
 import { showMessage } from "react-native-flash-message";
-export const damageHealth = (health, setHealth, damage, setGameOver) => {
-  console.log("New Health", health - damage);
-  setHealth(health - Math.abs(damage));
-  if (health <= 0) {
-    console.log("health <= 0");
-    alert("Gameover");
+export const damageHealth = (health, setHealth, damage, setGameOver, isP1) => {
+  const newHealth = health - Math.abs(damage);
+  setHealth(newHealth);
+  if (newHealth <= 0) {
+    alert(isP1 ? "You Lost..." : "You Won!");
     setGameOver(true);
   }
 };
@@ -43,26 +42,40 @@ export const checkAnswer = (
         compareDerivative(answer, funcP2)
       );
       if (compareDerivative(answer, funcP2) == true) {
-        setFuncP2(derivativeOf(funcP2));
+        const newFunc = derivativeOf(funcP2);
+        if (newFunc == "0") {
+          alert("You won by deriving the enemy!");
+          setGameOver(true);
+        }
+        setFuncP2(newFunc);
         showMessage({
           message: "Correct Derivative!",
           backgroundColor: "#5a70e0"
         });
       } else {
-        setFuncP1(derivativeOf(funcP1));
+        const newFunc = derivativeOf(funcP1);
+        if (newFunc == "0") {
+          alert("You lost by deriving incorrectly!");
+          setGameOver(true);
+        }
+        setFuncP1(newFunc);
         showMessage({
           message: "Incorrect Derivative!",
           backgroundColor: "#a93331"
         });
+        if (funcP1 == "0") {
+          alert("You lost by deriving!");
+          setGameOver(true);
+        }
       }
       break;
     case 2:
       console.log("Integral check");
       console.log(
-        `compare question: ${funcP2} with answer: ${answer}`,
-        compareIntegrals(answer, funcP2)
+        `compare question: ${funcP1} with answer: ${answer}`,
+        compareIntegrals(answer, funcP1)
       );
-      if (compareIntegrals(answer, funcP2) == true) {
+      if (compareIntegrals(answer, funcP1) == true) {
         setFuncP1(integralOf(funcP1));
         showMessage({
           message: "Correct Integral!",
@@ -83,13 +96,25 @@ export const checkAnswer = (
         compareCalculation(answer, funcP2, num)
       );
       if (compareCalculation(answer, funcP2, num) == true) {
-        damageHealth(healthP2, setHealthP2, calculate(funcP2, num));
+        damageHealth(
+          healthP2,
+          setHealthP2,
+          calculate(funcP2, num),
+          setGameOver,
+          false
+        );
         showMessage({
           message: "Correct Calculation!",
           backgroundColor: "#5a70e0"
         });
       } else {
-        damageHealth(healthP1, setHealthP1, calculate(funcP2, num));
+        damageHealth(
+          healthP1,
+          setHealthP1,
+          calculate(funcP2, num),
+          setGameOver,
+          true
+        );
         showMessage({
           message: "Incorrect Calculation!",
           backgroundColor: "#a93331"

@@ -31,6 +31,14 @@ const TitleScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>START</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("Help");
+        }}
+      >
+        <Text style={styles.buttonText}>How To Play</Text>
+      </TouchableOpacity>
     </View>
   );
 };

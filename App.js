@@ -6,6 +6,7 @@ import { createStackNavigator } from "react-navigation-stack";
 //Screens
 import TitleScreen from "./src/screens/TitleScreen";
 import BattleScreen from "./src/screens/BattleScreen";
+import HelpScreen from "./src/screens/HelpScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
 //Flash Message
 import FlashMessage from "react-native-flash-message";
@@ -21,6 +22,12 @@ const navigator = createStackNavigator(
     },
     Battle: {
       screen: BattleScreen,
+      navigationOptions: {
+        headerShown: false
+      }
+    },
+    Help: {
+      screen: HelpScreen,
       navigationOptions: {
         headerShown: false
       }

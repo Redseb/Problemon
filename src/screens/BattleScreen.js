@@ -14,9 +14,15 @@ import DiceDisplay from "../components/DiceDisplay";
 //Utils
 import { damageHealth } from "../util/playerFunctions";
 import { showMessage } from "react-native-flash-message";
+import { functionDatabase } from "../util/functionDatabase";
 
 const WIDTH = Dimensions.get("window").width;
 const BattleScreen = ({ navigation }) => {
+  const defaultFuncP1 =
+    functionDatabase[Math.ceil(Math.random() * functionDatabase.length - 1)];
+  const defaultFuncP2 =
+    functionDatabase[Math.ceil(Math.random() * functionDatabase.length - 1)];
+
   //Game State
   const [gameOver, setGameOver] = useState(false);
   const [isAwaitingInput, setIsAwaitingInput] = useState(true);
@@ -29,19 +35,22 @@ const BattleScreen = ({ navigation }) => {
   const [isRolling, setIsRolling] = useState(isAwaitingInput);
 
   //Player State
-  const [healthP2, setHealthP2] = useState(100);
-  const [funcP2, setFuncP2] = useState("4x^2"); //TODO: RANDOMIZE STARTING FUNCTIONS
-  const [healthP1, setHealthP1] = useState(100);
-  const [funcP1, setFuncP1] = useState("20x"); //TODO: RANDOMIZE STARTING FUNCTIONS
+  const [healthP2, setHealthP2] = useState(1000);
+  const [funcP2, setFuncP2] = useState(defaultFuncP1);
+  const [healthP1, setHealthP1] = useState(1000);
+  const [funcP1, setFuncP1] = useState(defaultFuncP2);
 
   // Testing;
   //   useEffect(() => {
   //     damageHealth(healthP1, setHealthP1, 15);
   //     setGameOver(true);
   //   }, []);
-  if (gameOver) {
-    navigation.navigate("Title");
-  }
+  useEffect(() => {
+    if (gameOver) {
+      navigation.navigate("Title");
+    }
+  });
+
   return (
     <View style={styles.container}>
       <Player func={funcP2} health={healthP2} index={"P2"} />
