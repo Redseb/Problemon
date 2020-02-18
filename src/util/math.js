@@ -22,9 +22,9 @@ function derivativeOf(expression) {
 function getPolynomialWithX(expression) {
   // USED FOR ALL THE EXPORTED FUNCTIONS
 
-  cObj = { coef: [], c: 0 };
-  pObj = { powers: [], p: 0 };
-  sObj = { signs: [], s: 0 };
+  let cObj = { coef: [], c: 0 };
+  let pObj = { powers: [], p: 0 };
+  let sObj = { signs: [], s: 0 };
 
   var match;
   while ((match = extractXReg.exec(expression)) != null) {
@@ -45,9 +45,9 @@ function getPolynomialWithX(expression) {
 }
 
 function derive(expression) {
-  coefs = getPolynomialWithX(expression).cObj.coef;
-  powers = getPolynomialWithX(expression).pObj.powers;
-  signs = getPolynomialWithX(expression).sObj.signs;
+  let coefs = getPolynomialWithX(expression).cObj.coef;
+  let powers = getPolynomialWithX(expression).pObj.powers;
+  let signs = getPolynomialWithX(expression).sObj.signs;
 
   var derivedExpressionArray = [];
 
@@ -82,14 +82,15 @@ function derive(expression) {
  * Takes an expression written in such a way: (x^2 + 4x^4 - 12)
  * and looks for x's with a power and ordinary numbers through out two
  * separate functions: getPolynomialWithX and getNumbers
+ * and calculates the value of the expression
  */
 
 function calculate(expression, value) {
-  signsOfX = getPolynomialWithX(expression).sObj.signs; // passes no sign as ''
-  coefsOfX = getPolynomialWithX(expression).cObj.coef;
-  powersOfX = getPolynomialWithX(expression).pObj.powers;
-  numbers = getNumbers(expression).nObj.numbers;
-  signsOfNumbers = getNumbers(expression).sObj.signs; // passes no sign as ''
+  let signsOfX = getPolynomialWithX(expression).sObj.signs; // passes no sign as ''
+  let coefsOfX = getPolynomialWithX(expression).cObj.coef;
+  let powersOfX = getPolynomialWithX(expression).pObj.powers;
+  let numbers = getNumbers(expression).nObj.numbers;
+  let signsOfNumbers = getNumbers(expression).sObj.signs; // passes no sign as ''
 
   var answer = 0;
   var unit = 0;
@@ -113,13 +114,13 @@ function calculate(expression, value) {
 }
 
 function getNumbers(expression) {
-  numbersInExpression = expression.replace(
+  let numbersInExpression = expression.replace(
     /([?\+ | ?-]\s*)*(\d+|[0-9]+.[0-9]+)*x\^*(\d+)*/g,
     ""
   );
 
-  sObj = { signs: [], s: 0 };
-  nObj = { numbers: [], n: 0 };
+  let sObj = { signs: [], s: 0 };
+  let nObj = { numbers: [], n: 0 };
 
   var match;
 
@@ -134,12 +135,19 @@ function getNumbers(expression) {
   return { sObj: sObj, nObj: nObj };
 }
 
+/**
+ * Takes an expression written in such a way: (x^2 + 4x^4 - 12)
+ * and looks for x's with a power and ordinary numbers through out two
+ * separate functions: getPolynomialWithX and getNumbers
+ * and returns indefinite integral as the answer
+ */
+
 function integralOf(expression) {
-  coefsOfX = getPolynomialWithX(expression).cObj.coef;
-  powersOfX = getPolynomialWithX(expression).pObj.powers;
-  signsOfX = getPolynomialWithX(expression).sObj.signs; // passes no sign as ''
-  numbers = getNumbers(expression).nObj.numbers;
-  signsOfNumbers = getNumbers(expression).sObj.signs; // passes no sign as ''
+  let coefsOfX = getPolynomialWithX(expression).cObj.coef;
+  let powersOfX = getPolynomialWithX(expression).pObj.powers;
+  let signsOfX = getPolynomialWithX(expression).sObj.signs; // passes no sign as ''
+  let numbers = getNumbers(expression).nObj.numbers;
+  let signsOfNumbers = getNumbers(expression).sObj.signs; // passes no sign as ''
 
   // WORKING ON X's
   var integratedExpression = "";

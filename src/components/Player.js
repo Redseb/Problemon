@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
   funcStyle1: {
     fontFamily: "pixel",
-    fontSize: 20,
+    fontSize: 12,
     marginTop: 20
   },
   funcStyle2: {
     fontFamily: "pixel",
-    fontSize: 20,
+    fontSize: 12,
     marginTop: 20
   },
   imageStyle1: {
