@@ -45,7 +45,7 @@ const TitleScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#cfc7c7",
+    backgroundColor: "#ffffff",
     flex: 1,
     justifyContent: "space-evenly"
   },

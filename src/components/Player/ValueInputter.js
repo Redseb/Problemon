@@ -29,7 +29,7 @@ const ValueInputter = ({
         autoCorrect={false}
         autoCapitalize={"none"}
         placeholder="Enter Function or Value"
-        placeholderTextColor="#ffffff"
+        // placeholderTextColor="#ffffff"
         value={value}
         onChange={text => {
           setValue(text.nativeEvent.text);
@@ -54,6 +54,7 @@ const ValueInputter = ({
             setGameOver,
             value
           );
+          setValue("");
         }}
       />
     </View>

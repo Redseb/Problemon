@@ -10,7 +10,9 @@ const DiceDisplay = ({
   diceResult,
   setIsAwaitingInput,
   isRolling,
-  setIsRolling
+  setIsRolling,
+  isCancelled,
+  setIsCancelled
 }) => {
   const numDiceGif = require("../../assets/images/diceNumGif.gif");
   const numDice1 = require("../../assets/images/d1.png");
@@ -37,10 +39,16 @@ const DiceDisplay = ({
         setSubtitle("Rolling Type of Problem...");
         setDiceImage(typeDiceGif);
       } else {
-        setSubtitle("Rolling Number...");
-        setDiceImage(numDiceGif);
+        if (isCancelled === false) {
+          setSubtitle("Rolling Number...");
+          setDiceImage(numDiceGif);
+        } else {
+          setSubtitle("");
+          setDiceImage(null);
+        }
       }
     }
+    console.log("in dice cancelled", isCancelled);
   });
   // if (invisibility === true) {
   //   return null;
@@ -75,12 +83,18 @@ const DiceDisplay = ({
       setIsAwaitingInput(true);
     }, 3500);
   }
-  return (
-    <View style={styles.container}>
-      <Image source={diceImage} style={styles.image} />
-      <Text style={styles.text}>{subtitle}</Text>
-    </View>
-  );
+
+  if (isCancelled && diceStatus == 2) {
+    return <View style={styles.containerCancelled}></View>;
+  } else {
+    return (
+      <View style={styles.container}>
+        <Image source={diceImage} style={styles.image} />
+        <Text style={styles.text}>{subtitle}</Text>
+      </View>
+    );
+  }
+
   // }
 };
 
@@ -88,6 +102,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignSelf: "center"
+  },
+  containerCancelled: {
+    height: 69,
+    width: 50
   },
   image: {
     height: 50,

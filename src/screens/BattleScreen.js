@@ -33,6 +33,7 @@ const BattleScreen = ({ navigation }) => {
   const [diceStatusNum, setDiceStatusNum] = useState(2); //1: (calc, derivative, integrate) 2:(1,2,3,4,5,6)
   const [diceResultNum, setDiceResultNum] = useState(0);
   const [isRolling, setIsRolling] = useState(isAwaitingInput);
+  const [isCancelled, setIsCancelled] = useState(false);
 
   //Player State
   const [healthP2, setHealthP2] = useState(1000);
@@ -49,6 +50,11 @@ const BattleScreen = ({ navigation }) => {
     if (gameOver) {
       navigation.navigate("Title");
     }
+    if (diceResultType != 3) {
+      setIsCancelled(true);
+    } else {
+      setIsCancelled(false);
+    }
   });
 
   return (
@@ -64,6 +70,8 @@ const BattleScreen = ({ navigation }) => {
           setIsAwaitingInput={setIsAwaitingInput}
           isRolling={isRolling}
           setIsRolling={setIsRolling}
+          isCancelled={isCancelled}
+          setIsCancelled={setIsCancelled}
         />
         <DiceDisplay
           isAwaitingInput={isAwaitingInput}
@@ -74,6 +82,8 @@ const BattleScreen = ({ navigation }) => {
           setIsAwaitingInput={setIsAwaitingInput}
           isRolling={isRolling}
           setIsRolling={setIsRolling}
+          isCancelled={isCancelled}
+          setIsCancelled={setIsCancelled}
         />
       </View>
       <KeyboardAvoidingView behavior="padding">
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: "#cfc7c7"
+    backgroundColor: "#ffffff"
   },
   diceContainer: {
     flexDirection: "column"
