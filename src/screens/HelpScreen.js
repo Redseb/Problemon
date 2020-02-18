@@ -72,6 +72,9 @@ const HelpScreen = ({ navigation }) => {
           <View style={styles.section}>
             <Text style={styles.header}>Note:</Text>
             <Text style={styles.textCentered}>Avoid typing in fractions!</Text>
+            <Text style={styles.textCentered}>
+              DO NOT Simplify your answers
+            </Text>
           </View>
         </ScrollView>
       </View>

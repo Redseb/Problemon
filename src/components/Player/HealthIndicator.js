@@ -5,9 +5,9 @@ const WIDTH = Dimensions.get("window").width;
 
 const HealthIndicator = ({ health }) => {
   let color = "green";
-  if (health <= 5000 && health >= 25) {
+  if (health <= 500 && health >= 25) {
     color = "yellow";
-  } else if (health < 2500) {
+  } else if (health < 250) {
     color = "red";
   }
   return (
@@ -15,13 +15,13 @@ const HealthIndicator = ({ health }) => {
       <View style={styles.borderHealthBar}>
         <View
           style={{
-            width: (health / 10000) * (WIDTH - 110),
+            width: (health / 1000) * (WIDTH - 110),
             backgroundColor: color,
             height: 10
           }}
         ></View>
       </View>
-      <Text style={styles.text}>{health} / 10000</Text>
+      <Text style={styles.text}>{health} / 1000</Text>
     </View>
   );
 };

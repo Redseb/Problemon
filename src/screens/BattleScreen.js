@@ -36,9 +36,9 @@ const BattleScreen = ({ navigation }) => {
   const [isCancelled, setIsCancelled] = useState(false);
 
   //Player State
-  const [healthP2, setHealthP2] = useState(10000);
+  const [healthP2, setHealthP2] = useState(1000);
   const [funcP2, setFuncP2] = useState(defaultFuncP1);
-  const [healthP1, setHealthP1] = useState(10000);
+  const [healthP1, setHealthP1] = useState(1000);
   const [funcP1, setFuncP1] = useState(defaultFuncP2);
 
   // Testing;
