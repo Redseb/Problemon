@@ -5,7 +5,7 @@ import {
   calculate,
   integralOf,
   compareIntegrals
-} from "../util/derivatives";
+} from "../util/math";
 import { showMessage } from "react-native-flash-message";
 export const damageHealth = (health, setHealth, damage, setGameOver, isP1) => {
   const newHealth = health - Math.abs(damage);

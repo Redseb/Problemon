@@ -20,7 +20,8 @@ const TitleScreen = ({ navigation }) => {
           style={styles.image}
         />
         <Text style={styles.text}>
-          A Game created in 24 hours by Abdullah, Maxim, and Miko
+          A Game created in 24 hours by Abdulla Mohamed, Maxim Dubakov, and
+          Mikolaj Zyzanski
         </Text>
       </View>
       <TouchableOpacity
@@ -29,7 +30,7 @@ const TitleScreen = ({ navigation }) => {
           navigation.navigate("Battle");
         }}
       >
-        <Text style={styles.buttonText}>START</Text>
+        <Text style={styles.buttonText}>Start</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}

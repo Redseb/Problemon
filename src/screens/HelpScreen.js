@@ -69,6 +69,10 @@ const HelpScreen = ({ navigation }) => {
             <Text style={styles.header}> or </Text>
             <Text style={styles.textCentered}>F(x) = 0</Text>
           </View>
+          <View style={styles.section}>
+            <Text style={styles.header}>Note:</Text>
+            <Text style={styles.textCentered}>Avoid typing in fractions!</Text>
+          </View>
         </ScrollView>
       </View>
       <TouchableOpacity

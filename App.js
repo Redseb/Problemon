@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
 import * as Font from "expo-font";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -64,7 +63,7 @@ export default () => {
     return (
       <>
         <App />
-        <FlashMessage position="top" />
+        <FlashMessage position="bottom" />
       </>
     );
   } else {
