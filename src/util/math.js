@@ -210,12 +210,12 @@ function getPolynomialWithX(expression) {
 
 function getNumbers(expression) {
 
+    expression = processQuotients(expression);
 
   let numbersInExpression = expression.replace(
     extractXReg, 
     ''
     );
-
 
     let sObj = {signs: [], s: 0};
     let nObj = {numbers: [], n: 0};
