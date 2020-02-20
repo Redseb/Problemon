@@ -36,11 +36,6 @@ export const checkAnswer = (
 ) => {
   switch (type) {
     case 1:
-      console.log("Derivative check");
-      console.log(
-        `compare question: ${funcP2} with answer: ${answer}`,
-        compareDerivative(answer, funcP2)
-      );
       if (compareDerivative(answer, funcP2) == true) {
         const newFunc = derivativeOf(funcP2);
         if (newFunc == "0") {
@@ -70,11 +65,6 @@ export const checkAnswer = (
       }
       break;
     case 2:
-      console.log("Integral check");
-      console.log(
-        `compare question: ${funcP1} with answer: ${answer}`,
-        compareIntegrals(answer, funcP1)
-      );
       if (compareIntegrals(answer, funcP1) == true) {
         setFuncP1(integralOf(funcP1));
         showMessage({
@@ -90,16 +80,11 @@ export const checkAnswer = (
       }
       break;
     default:
-      console.log("Calculate check");
-      console.log(
-        `compare calculation: ${funcP2} at x = ${num} with answer: ${answer}`,
-        compareCalculation(answer, funcP2, num)
-      );
-      if (compareCalculation(answer, funcP2, num) == true) {
+      if (compareCalculation(answer, funcP1, num) == true) {
         damageHealth(
           healthP2,
           setHealthP2,
-          calculate(funcP2, num),
+          calculate(funcP1, num),
           setGameOver,
           false
         );
@@ -111,7 +96,7 @@ export const checkAnswer = (
         damageHealth(
           healthP1,
           setHealthP1,
-          calculate(funcP2, num),
+          calculate(funcP1, num),
           setGameOver,
           true
         );

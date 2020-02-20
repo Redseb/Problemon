@@ -44,7 +44,7 @@ const HelpScreen = ({ navigation }) => {
 
           <View style={styles.section}>
             <Text style={styles.header}>
-              Calculate: Write the value of G(X) where x is the number dice
+              Calculate: Write the value of F(X) where x is the number dice
             </Text>
             <Text style={styles.text}>
               ex: dice roll = 3, x = 3 ,G(x) = x^2, Ans: 6
