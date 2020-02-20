@@ -1,7 +1,7 @@
 import {
-  compareDerivative,
+  compareDerivatives,
   derivativeOf,
-  compareCalculation,
+  compareCalculations,
   calculate,
   integralOf,
   compareIntegrals
@@ -36,7 +36,7 @@ export const checkAnswer = (
 ) => {
   switch (type) {
     case 1:
-      if (compareDerivative(answer, funcP2) == true) {
+      if (compareDerivatives(answer, funcP2) == true) {
         const newFunc = derivativeOf(funcP2);
         if (newFunc == "0") {
           alert("You won by deriving the enemy!");
@@ -80,7 +80,7 @@ export const checkAnswer = (
       }
       break;
     default:
-      if (compareCalculation(answer, funcP1, num) == true) {
+      if (compareCalculations(answer, funcP1, num) == true) {
         damageHealth(
           healthP2,
           setHealthP2,
