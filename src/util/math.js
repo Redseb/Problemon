@@ -142,6 +142,30 @@ function integralOf(expression) {
 
 // HELPERS
 
+function processQuotients(expression) {
+
+    const regForQuotients = /(\d+)\/(\d+)/g;
+
+    let numerators = [];
+    let N = 0;
+    let denominators = [];
+    let D = 0;
+    let match;
+    while ((match = regForQuotients.exec(expression)) != null) {
+        numerators[N++] = match[1];
+        denominators[D++] = match[2];
+    }
+
+    let decimals = [];
+    for (let i = 0; i < numerators.length; i++) {
+        decimals[i] = Number(numerators[i] / denominators[i]).toFixed(2);
+        expression = expression.replace(numerators[i] + '\/' + denominators[i], decimals[i]);
+    }
+
+    return expression;
+}
+
+
 function getPolynomialWithX(expression) {
 
     let cObj = {
@@ -158,6 +182,8 @@ function getPolynomialWithX(expression) {
         signs: [],
         s: 0
     };
+
+    expression = processQuotients(expression);
 
     let match;
     while ((match = extractXReg.exec(expression)) != null) {
@@ -402,10 +428,16 @@ function compare(userAnswer, correctAnswer) {
     userAnswer = simplify(userAnswer);
     correctAnswer = simplify(correctAnswer);
 
-    // processing number written by user
-    const numberOfUser = getNumbers(userAnswer).sObj.signs[0] + getNumbers(userAnswer).nObj.numbers[0];
-    const correctNumber = getNumbers(correctAnswer).sObj.signs[0] + getNumbers(correctAnswer).nObj.numbers[0];
+    console.log(userAnswer + "|" + correctAnswer);
 
+    // processing number written by user
+    let numberOfUser = getNumbers(userAnswer).sObj.signs[0] + getNumbers(userAnswer).nObj.numbers[0];
+    let correctNumber = getNumbers(correctAnswer).sObj.signs[0] + getNumbers(correctAnswer).nObj.numbers[0];
+
+    
+
+    if (isNaN(numberOfUser)) numberOfUser = 0;
+    if (isNaN(correctNumber)) correctNumber = 0;
     if (numberOfUser != correctNumber) {
         return false;
     }
@@ -468,4 +500,3 @@ const _compareCalculations = compareCalculations;
 export { _compareCalculations as compareCalculations };
 const _compareIntegrals = compareIntegrals;
 export { _compareIntegrals as compareIntegrals };
-
