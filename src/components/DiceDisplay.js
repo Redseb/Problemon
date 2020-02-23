@@ -27,20 +27,21 @@ const DiceDisplay = ({
   const typeDiceDerive = require("../../assets/images/dDerive.png");
   const typeDiceCalculate = require("../../assets/images/dCalculate.png");
   const diceTypes = [typeDiceDerive, typeDiceIntegrate, typeDiceCalculate];
+  const dNull = require("../../assets/images/dNull.png");
 
   // const [isRolling, setIsRolling] = useState(isAwaitingInput);
   console.log("isRolling...", isRolling);
   const [diceImage, setDiceImage] = useState(numDiceGif);
-  const [subtitle, setSubtitle] = useState("Dice");
+  const [subtitle, setSubtitle] = useState("");
 
   useEffect(() => {
     if (isRolling) {
       if (diceStatus == 1) {
-        setSubtitle("Rolling Type of Problem...");
+        setSubtitle("");
         setDiceImage(typeDiceGif);
       } else {
         if (isCancelled === false) {
-          setSubtitle("Rolling Number...");
+          setSubtitle("");
           setDiceImage(numDiceGif);
         } else {
           setSubtitle("");
@@ -48,7 +49,6 @@ const DiceDisplay = ({
         }
       }
     }
-    console.log("in dice cancelled", isCancelled);
   });
   // if (invisibility === true) {
   //   return null;
@@ -85,7 +85,7 @@ const DiceDisplay = ({
   }
 
   if (isCancelled && diceStatus == 2) {
-    return <View style={styles.containerCancelled}></View>;
+    return null;
   } else {
     return (
       <View style={styles.container}>

@@ -10,6 +10,7 @@ import {
 //Components
 import Player from "../components/Player";
 import ValueInputter from "../components/Player/ValueInputter";
+import KeyboardValueInputter from "../components/Player/KeyboardInputter/KeyboardValueInputter";
 import DiceDisplay from "../components/DiceDisplay";
 //Utils
 import { damageHealth } from "../util/playerFunctions";
@@ -86,7 +87,7 @@ const BattleScreen = ({ navigation }) => {
           setIsCancelled={setIsCancelled}
         />
       </View>
-      <KeyboardAvoidingView behavior="padding">
+      {/* <KeyboardAvoidingView behavior="padding">
         <ValueInputter
           diceResultType={diceResultType}
           diceResultNum={diceResultNum}
@@ -105,7 +106,27 @@ const BattleScreen = ({ navigation }) => {
           setGameOver={setGameOver}
         />
         <Player func={funcP1} health={healthP1} index={"P1"} />
-      </KeyboardAvoidingView>
+      </KeyboardAvoidingView> */}
+      <View>
+        <KeyboardValueInputter
+          diceResultType={diceResultType}
+          diceResultNum={diceResultNum}
+          funcP2={funcP2}
+          setFuncP2={setFuncP2}
+          funcP1={funcP1}
+          setFuncP1={setFuncP1}
+          healthP1={healthP1}
+          healthP2={healthP2}
+          setHealthP1={setHealthP1}
+          setHealthP2={setHealthP2}
+          isAwaitingInput={isAwaitingInput}
+          setIsAwaitingInput={setIsAwaitingInput}
+          isRolling={isRolling}
+          setIsRolling={setIsRolling}
+          setGameOver={setGameOver}
+        />
+        <Player func={funcP1} health={healthP1} index={"P1"} />
+      </View>
     </View>
   );
 };
@@ -113,12 +134,13 @@ const BattleScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     backgroundColor: "#ffffff",
     paddingTop: 10
   },
   diceContainer: {
-    flexDirection: "column"
+    flexDirection: "row",
+    justifyContent: "space-evenly"
   }
 });
 
