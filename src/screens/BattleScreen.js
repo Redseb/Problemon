@@ -5,12 +5,13 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 //Components
 import Player from "../components/Player";
 import ValueInputter from "../components/Player/ValueInputter";
-import KeyboardValueInputter from "../components/Player/KeyboardInputter/KeyboardValueInputter";
+import KeyboardValueInputter from "../components/Player/ValueInputter";
 import DiceDisplay from "../components/DiceDisplay";
 //Utils
 import { damageHealth } from "../util/playerFunctions";
@@ -57,6 +58,8 @@ const BattleScreen = ({ navigation }) => {
       setIsCancelled(false);
     }
   });
+
+  console.log("Platform: ", Platform.OS);
 
   return (
     <View style={styles.container}>
@@ -134,7 +137,7 @@ const BattleScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     backgroundColor: "#ffffff",
     paddingTop: 10
   },

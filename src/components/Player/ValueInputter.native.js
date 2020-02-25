@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import InputDisplay from "./InputDisplay";
 import Keyboard from "./Keyboard";
-import { checkAnswer } from "../../../util/playerFunctions";
+import { checkAnswer } from "../../util/playerFunctions";
 
 const WIDTH = Dimensions.get("window").width;
 
