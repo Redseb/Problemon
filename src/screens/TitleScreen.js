@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: "center",
-    marginBottom: 10
+    marginBottom: 10,
+    height: 74,
+    width: 222
   }
 });
 

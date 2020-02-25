@@ -15,6 +15,7 @@ const DiceDisplay = ({
   setIsCancelled
 }) => {
   const numDiceGif = require("../../assets/images/diceNumGif.gif");
+
   const numDice1 = require("../../assets/images/d1.png");
   const numDice2 = require("../../assets/images/d2.png");
   const numDice3 = require("../../assets/images/d3.png");
@@ -23,6 +24,7 @@ const DiceDisplay = ({
   const numDice6 = require("../../assets/images/d6.png");
   const diceNums = [numDice1, numDice2, numDice3, numDice4, numDice5, numDice6];
   const typeDiceGif = require("../../assets/images/diceTypeGif.gif");
+
   const typeDiceIntegrate = require("../../assets/images/dIntegral.png");
   const typeDiceDerive = require("../../assets/images/dDerive.png");
   const typeDiceCalculate = require("../../assets/images/dCalculate.png");
