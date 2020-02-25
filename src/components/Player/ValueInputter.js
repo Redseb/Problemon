@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: "pixel",
-    fontSize: 10,
+    fontSize: 12,
     height: 50,
     width: WIDTH - 100
   }
