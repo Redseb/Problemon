@@ -18,66 +18,60 @@ const diceCalculate = require("../../assets/images/dCalculate.png");
 
 const HelpScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <ScrollView>
-          <Text style={styles.header}>How to Play:</Text>
-          <View style={styles.section}>
-            <Text style={styles.header}>
-              Integral: Write the integral of function F(x)
-            </Text>
-            <Image source={diceIntegrate} style={styles.diceImage} />
-            <Text style={styles.text}>
-              Correct Answer: F(x) gets integrated
-            </Text>
-            <Text style={styles.text}>Wrong Answer: G(x) gets integrated</Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.header}>
-              Derivative: Write the derivative of G(x)
-            </Text>
-            <Image source={diceDerive} style={styles.diceImage} />
-            <Text style={styles.text}>Correct Answer: G(x) gets derived</Text>
-            <Text style={styles.text}>Wrong Answer: F(x) gets derived</Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.header}>
-              Calculate: Write the value of F(X) where x is the number dice
-            </Text>
-            <Text style={styles.text}>
-              ex: dice roll = 3, x = 3 ,G(x) = x^2, Ans: 6
-            </Text>
-            <Image source={diceCalculate} style={styles.diceImage} />
-            <Text style={styles.text}>
-              Correct Answer: Damage delt to G(x) equal to the correct answer
-            </Text>
-            <Text style={styles.text}>
-              Wrong Answer: Damage delt to F(x) equal to the correct answer
-            </Text>
-          </View>
-          <View style={styles.section}>
-            <Text style={styles.header}>You Win When:</Text>
-            <Text style={styles.textCentered}>G(x) health bar = 0</Text>
-            <Text style={styles.header}> or </Text>
-            <Text style={styles.textCentered}>G(x) = 0</Text>
-          </View>
-          <View style={styles.section}>
-            <Text style={styles.header}>You Lose When:</Text>
-            <Text style={styles.textCentered}>F(x) health bar = 0</Text>
-            <Text style={styles.header}> or </Text>
-            <Text style={styles.textCentered}>F(x) = 0</Text>
-          </View>
-          <View style={styles.section}>
-            <Text style={styles.header}>Note:</Text>
-            <Text style={styles.textCentered}>Avoid typing in fractions!</Text>
-            <Text style={styles.textCentered}>
-              DO NOT Simplify your answers
-            </Text>
-          </View>
-        </ScrollView>
+    // <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.innerContainer}>
+      <Text style={styles.header}>How to Play:</Text>
+      <View style={styles.section}>
+        <Text style={styles.header}>
+          Integral: Write the integral of function F(x)
+        </Text>
+        <Image source={diceIntegrate} style={styles.diceImage} />
+        <Text style={styles.text}>Correct Answer: F(x) gets integrated</Text>
+        <Text style={styles.text}>Wrong Answer: G(x) gets integrated</Text>
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.header}>
+          Derivative: Write the derivative of G(x)
+        </Text>
+        <Image source={diceDerive} style={styles.diceImage} />
+        <Text style={styles.text}>Correct Answer: G(x) gets derived</Text>
+        <Text style={styles.text}>Wrong Answer: F(x) gets derived</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.header}>
+          Calculate: Write the value of F(X) where x is the number dice
+        </Text>
+        <Text style={styles.text}>
+          ex: dice roll = 3, x = 3 ,G(x) = x^2, Ans: 6
+        </Text>
+        <Image source={diceCalculate} style={styles.diceImage} />
+        <Text style={styles.text}>
+          Correct Answer: Damage delt to G(x) equal to the correct answer
+        </Text>
+        <Text style={styles.text}>
+          Wrong Answer: Damage delt to F(x) equal to the correct answer
+        </Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.header}>You Win When:</Text>
+        <Text style={styles.textCentered}>G(x) health bar = 0</Text>
+        <Text style={styles.header}> or </Text>
+        <Text style={styles.textCentered}>G(x) = 0</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.header}>You Lose When:</Text>
+        <Text style={styles.textCentered}>F(x) health bar = 0</Text>
+        <Text style={styles.header}> or </Text>
+        <Text style={styles.textCentered}>F(x) = 0</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.header}>Note:</Text>
+        <Text style={styles.textCentered}>Avoid typing in fractions!</Text>
+        <Text style={styles.textCentered}>DO NOT Simplify your answers</Text>
+      </View>
+      {/* </View> */}
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => {
@@ -86,7 +80,7 @@ const HelpScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Go Back</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -99,16 +93,11 @@ const styles = StyleSheet.create({
   innerContainer: {
     justifyContent: "space-evenly",
     backgroundColor: "#000000",
-    alignSelf: "center",
-    borderRadius: 10,
-    marginVertical: 20,
-    marginHorizontal: 10,
-    width: WIDTH - 50,
-    height: HEIGHT + 50,
-    paddingHorizontal: 10
+    alignSelf: "center"
   },
   section: {
-    marginVertical: 5
+    marginVertical: 5,
+    alignSelf: "center"
   },
   header: {
     color: "#ffffff",
@@ -135,7 +124,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     borderRadius: 10,
-    width: WIDTH - 200,
+    width: WIDTH,
     paddingVertical: 20,
     backgroundColor: "#000000",
     alignSelf: "center",
