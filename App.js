@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Font from "expo-font";
+//React navigation
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 //Screens
