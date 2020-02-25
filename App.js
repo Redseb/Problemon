@@ -53,7 +53,7 @@ export default () => {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        pixel: require("./assets/fonts/PixelFJVerdana12pt.ttf")
+        pixel: require("./assets/fonts/pixPixelFJVerdana12pt.ttf")
       });
       setFontsLoaded(true);
     }
