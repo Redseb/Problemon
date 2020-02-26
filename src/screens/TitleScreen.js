@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,9 @@ import {
 
 const WIDTH = Dimensions.get("window").width;
 
-const TitleScreen = ({ navigation }) => {
+const TitleScreen = ({ navigation, screenProps }) => {
+  // const [isHard, setIsHard] = useState(false); //0: Normal, 1: Hard
+
   return (
     <View style={styles.container}>
       <View>
@@ -24,6 +26,18 @@ const TitleScreen = ({ navigation }) => {
           Mikolaj Zyzanski
         </Text>
       </View>
+      <TouchableOpacity
+        style={
+          screenProps.isHard == false ? styles.normalDiff : styles.hardDiff
+        }
+        onPress={() => {
+          screenProps.setIsHard(!screenProps.isHard);
+        }}
+      >
+        <Text style={styles.buttonText}>
+          {screenProps.isHard == false ? "Normal" : "Hard"}
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
@@ -82,6 +96,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: 74,
     width: 222
+  },
+  normalDiff: {
+    justifyContent: "center",
+    backgroundColor: "#5a6ee1",
+    borderRadius: 10,
+    width: WIDTH - 200,
+    paddingVertical: 20,
+    alignSelf: "center"
+  },
+  hardDiff: {
+    justifyContent: "center",
+    backgroundColor: "#ac3231",
+    borderRadius: 10,
+    width: WIDTH - 200,
+    paddingVertical: 20,
+    alignSelf: "center"
   }
 });
 

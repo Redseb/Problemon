@@ -49,6 +49,7 @@ const navigator = createStackNavigator(
 const App = createAppContainer(navigator);
 export default () => {
   //Load Fonts
+  const [isHard, setIsHard] = useState(false); //0: Normal, 1: Hard
   const [fontsLoaded, setFontsLoaded] = useState(false);
   useEffect(() => {
     async function loadFonts() {
@@ -63,7 +64,7 @@ export default () => {
   if (fontsLoaded) {
     return (
       <>
-        <App />
+        <App screenProps={{ isHard: isHard, setIsHard: setIsHard }} />
         <FlashMessage position="bottom" />
       </>
     );
