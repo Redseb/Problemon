@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "ee3d69348fb173b5480e",
-    "url": "/Problemon/static/js/app.f0c6b856.chunk.js"
+    "revision": "6c430a26bb8b3eb6d127",
+    "url": "/Problemon/static/js/app.ba183535.chunk.js"
   },
   {
     "revision": "984f2b243f908451532a",
     "url": "/Problemon/static/js/runtime~app.3f13b7b1.js"
   },
   {
-    "revision": "2ed4404854090366cd67",
-    "url": "/Problemon/static/js/2.56b5d523.chunk.js"
+    "revision": "251db32f40d7bcbdbc1f",
+    "url": "/Problemon/static/js/2.656d0a1d.chunk.js"
   },
   {
     "revision": "5f2360c38883037a76c8624fee1c0b63",
@@ -24,16 +24,16 @@ self.__precacheManifest = [
     "url": "/Problemon/static/media/diceTypeGif.2587f1e3.gif"
   },
   {
-    "revision": "7a7bc7ead25db795e58b336f04d2624c",
-    "url": "/Problemon/favicon.ico"
-  },
-  {
     "revision": "d0c694b562b2208635f250762cd7fc79",
     "url": "/Problemon/serve.json"
   },
   {
     "revision": "48c7ed4e7da9792af288a60d7242d615",
     "url": "/Problemon/expo-service-worker.js"
+  },
+  {
+    "revision": "7a7bc7ead25db795e58b336f04d2624c",
+    "url": "/Problemon/favicon.ico"
   },
   {
     "revision": "97e779b6e4d6f28a7a81ee892cc97cd8",
@@ -100,7 +100,7 @@ self.__precacheManifest = [
     "url": "/Problemon/apple/splash/icon_828x1792.png"
   },
   {
-    "revision": "122895f68d7189bf7b74bbc3d9c9a584",
+    "revision": "b614b1ac4a7e2b1be1278d0d07b4c568",
     "url": "/Problemon/index.html"
   },
   {
@@ -112,11 +112,11 @@ self.__precacheManifest = [
     "url": "/Problemon/expo-service-worker.js.gz"
   },
   {
-    "revision": "f6e4a87ef65c43416d6084cfc800ffd1",
-    "url": "/Problemon/static/js/app.f0c6b856.chunk.js.gz"
+    "revision": "508f951af334714784bba5a1aeb30dbc",
+    "url": "/Problemon/static/js/app.ba183535.chunk.js.gz"
   },
   {
-    "revision": "52ea5c938d5bed884e5b0a22bdd94d9a",
-    "url": "/Problemon/static/js/2.56b5d523.chunk.js.gz"
+    "revision": "f72b98e547917712d70e39cf15114d47",
+    "url": "/Problemon/static/js/2.656d0a1d.chunk.js.gz"
   }
 ];
