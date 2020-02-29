@@ -119,12 +119,11 @@ function calculate(expression, value) {
     if (numbers.length == 0) {
         if (finalSign == '-') finalSign = '';
         answer = finalSign + finalCoef;
-        // answer = simplifyFractions(answer);
+        answer = getExpressionInDecimals(answer);
         return answer.replace(/^\+/, '');
     }
     
     answer = getExpressionInDecimals(sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction);
-    // answer = simplifyFractions(answer);
 
     return answer;
 }
