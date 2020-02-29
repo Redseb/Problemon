@@ -5,20 +5,27 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 //Components
 import Player from "../components/Player";
 import ValueInputter from "../components/Player/ValueInputter";
-import KeyboardValueInputter from "../components/Player/KeyboardInputter/KeyboardValueInputter";
+import KeyboardValueInputter from "../components/Player/ValueInputter";
 import DiceDisplay from "../components/DiceDisplay";
 //Utils
 import { damageHealth } from "../util/playerFunctions";
 import { showMessage } from "react-native-flash-message";
-import { functionDatabase } from "../util/functionDatabase";
+import {
+  functionDatabaseNormal,
+  functionDatabaseHard
+} from "../util/functionDatabase";
 
 const WIDTH = Dimensions.get("window").width;
-const BattleScreen = ({ navigation }) => {
+const BattleScreen = ({ navigation, screenProps }) => {
+  const functionDatabase = screenProps.isHard
+    ? functionDatabaseHard
+    : functionDatabaseNormal;
   const defaultFuncP1 =
     functionDatabase[Math.ceil(Math.random() * functionDatabase.length - 1)];
   const defaultFuncP2 =
@@ -58,6 +65,8 @@ const BattleScreen = ({ navigation }) => {
     }
   });
 
+  console.log("Platform: ", Platform.OS);
+
   return (
     <View style={styles.container}>
       <Player func={funcP2} health={healthP2} index={"P2"} />
@@ -87,26 +96,6 @@ const BattleScreen = ({ navigation }) => {
           setIsCancelled={setIsCancelled}
         />
       </View>
-      {/* <KeyboardAvoidingView behavior="padding">
-        <ValueInputter
-          diceResultType={diceResultType}
-          diceResultNum={diceResultNum}
-          funcP2={funcP2}
-          setFuncP2={setFuncP2}
-          funcP1={funcP1}
-          setFuncP1={setFuncP1}
-          healthP1={healthP1}
-          healthP2={healthP2}
-          setHealthP1={setHealthP1}
-          setHealthP2={setHealthP2}
-          isAwaitingInput={isAwaitingInput}
-          setIsAwaitingInput={setIsAwaitingInput}
-          isRolling={isRolling}
-          setIsRolling={setIsRolling}
-          setGameOver={setGameOver}
-        />
-        <Player func={funcP1} health={healthP1} index={"P1"} />
-      </KeyboardAvoidingView> */}
       <View>
         <KeyboardValueInputter
           diceResultType={diceResultType}
@@ -134,7 +123,7 @@ const BattleScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     backgroundColor: "#ffffff",
     paddingTop: 10
   },

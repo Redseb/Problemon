@@ -5,7 +5,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo build:web"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.5",
@@ -24,8 +26,10 @@
     "react-navigation-stack": "^2.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "gh-pages": "^2.2.0"
   },
-  "private": true
+  "private": true,
+  "homepage": "http://Redseb.github.io/Problemon/"
 }

@@ -55,11 +55,15 @@ const styles = StyleSheet.create({
   },
   imageStyle1: {
     alignSelf: "center",
-    marginRight: 20
+    marginRight: 20,
+    height: 61,
+    width: 71
   },
   imageStyle2: {
     alignSelf: "center",
-    marginRight: 20
+    marginRight: 20,
+    height: 61,
+    width: 71
   }
 });
 

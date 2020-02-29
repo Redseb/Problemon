@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Font from "expo-font";
+//React navigation
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 //Screens
@@ -48,11 +49,12 @@ const navigator = createStackNavigator(
 const App = createAppContainer(navigator);
 export default () => {
   //Load Fonts
+  const [isHard, setIsHard] = useState(false); //0: Normal, 1: Hard
   const [fontsLoaded, setFontsLoaded] = useState(false);
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        pixel: require("./assets/fonts/PixelFJVerdana12pt.ttf")
+        pixel: require("./assets/fonts/pixPixelFJVerdana12pt.ttf")
       });
       setFontsLoaded(true);
     }
@@ -62,7 +64,7 @@ export default () => {
   if (fontsLoaded) {
     return (
       <>
-        <App />
+        <App screenProps={{ isHard: isHard, setIsHard: setIsHard }} />
         <FlashMessage position="bottom" />
       </>
     );

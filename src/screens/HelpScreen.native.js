@@ -20,7 +20,7 @@ const HelpScreen = ({ navigation }) => {
   return (
     // <View style={styles.container}>
     <ScrollView contentContainerStyle={styles.innerContainer}>
-      <Text style={styles.header}>How to Play:</Text>
+      <Text style={styles.headerTop}>How to Play:</Text>
       <View style={styles.section}>
         <Text style={styles.header}>
           Integral: Write the integral of function F(x)
@@ -90,13 +90,21 @@ const styles = StyleSheet.create({
     flex: 1
   },
   innerContainer: {
+    justifyContent: "space-evenly",
     backgroundColor: "#000000",
     alignSelf: "center",
-    height: HEIGHT
+    marginHorizontal: 20
   },
   section: {
     marginVertical: 5,
     alignSelf: "center"
+  },
+  headerTop: {
+    color: "#ffffff",
+    fontFamily: "pixel",
+    fontSize: 12,
+    alignSelf: "center",
+    marginVertical: 20
   },
   header: {
     color: "#ffffff",
