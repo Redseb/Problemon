@@ -772,8 +772,14 @@ function compareDerivatives(userAnswer, func) {
 }
 
 function compareCalculations(userAnswer, func, value) {
-    const correctCalculation = calculate(func, value);
-    if (userAnswer == correctCalculation) {
+    const correctCalculation = simplify(calculate(func, value));
+    const correctCalculationFractional = correctCalculation.simplifiedFractional;
+    const correctCalculationDecimal = correctCalculation.simplifiedDecimal;
+    const userAnswerSimplified = simplify(userAnswer);
+    const userAnswerFractional = userAnswerSimplified.simplifiedFractional;
+    const userAnswerDecimal = userAnswerSimplified.simplifiedDecimal;
+    if (correctCalculationDecimal == userAnswerDecimal ||
+        correctCalculationFractional == userAnswerFractional) {
         return true;
     } else return false;
 }
@@ -878,6 +884,8 @@ function processExpressionForCompare(expression) {
 
     return xExpression;
 }
+
+
 
 
 const _derivativeOf = derivativeOf;
