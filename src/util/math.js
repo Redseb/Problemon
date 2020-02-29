@@ -86,10 +86,16 @@ function calculate(expression, value) {
     for (let i = 0; i < coefsOfX.length; i++) {
         units[i] = multiplyFractions(signsOfX[i], coefsOfX[i], '+', Math.pow(value, powersOfX[i]));
     }
-
+    
     let finalSign = signsOfX[0];
     let finalCoef = units[0];
-    for (let i = 1; i < coefsOfX.length; i++) {
+    let finalCoefIsNotZero = true;
+    if (finalSign == undefined) {
+        finalSign = '+';
+        finalCoef = '0/1';
+        finalCoefIsNotZero = false;
+    }
+    for (let i = 1; i < coefsOfX.length && finalCoefIsNotZero; i++) {
         let sumedUpFractionObj = sumFractions(
             finalSign, 
             finalCoef, 
@@ -101,18 +107,19 @@ function calculate(expression, value) {
             finalCoef = sumedUpFractionObj.fraction;
         } else finalCoef = '0/1';
     }
-    
-    if (finalCoef == null) return '';
-    
+
+    if (finalCoef == null && numbers.length == 0) {
+        return '';
+    }
+
     if (numbers.length == 0) {
         if (finalSign == '-') finalSign = '';
         answer = finalSign + finalCoef;
         answer = simplifyFractions(answer);
-        return answer;
+        return answer.replace(/^\+/, '');
     }
-
+    
     answer = sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction;
-
     answer = simplifyFractions(answer);
 
     return answer;
@@ -162,7 +169,6 @@ function integralOf(expression) {
 
     return answer.toString().replace(/\s/g, '');
 }
-
 
 //
 //LOW-LEVEL EXTRACTORS HELPERS
@@ -692,6 +698,9 @@ function simplifyFractions(expression) {
 //
 
 function sumFractions(signf1, f1, signf2, f2) {
+
+    if (f1 == '' || f1 == null) return signf2 + f2;
+    if (f2 == '' || f2 == null) return signf1 + f1;
 
     const reg = /(\d+)\/(\d+)/;
 
