@@ -101,11 +101,14 @@ const DiceDisplay = ({
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    height: 69,
+    marginBottom: 10
   },
   containerCancelled: {
     height: 69,
-    width: 50
+    width: 50,
+    marginBottom: 10
   },
   image: {
     height: 50,
