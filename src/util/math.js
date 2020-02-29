@@ -55,6 +55,7 @@ function derive(expression) {
     for (let i = 0; i < derivedExpressionArray.length; i++) {
         derivedExpression += derivedExpressionArray[i];
     }
+
     derivedExpression = simplify(derivedExpression).simplifiedFractional;
 
     return derivedExpression.replace(/^\+/, '');
@@ -102,9 +103,17 @@ function calculate(expression, value) {
     }
     
     if (finalCoef == null) return '';
-    answer = finalSign + finalCoef;
-    if (numbers.length == 0) return answer;
+    
+    if (numbers.length == 0) {
+        if (finalSign == '-') finalSign = '';
+        answer = finalSign + finalCoef;
+        answer = simplifyFractions(answer);
+        return answer;
+    }
+
     answer = sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction;
+
+    answer = simplifyFractions(answer);
 
     return answer;
 }
