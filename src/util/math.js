@@ -86,16 +86,18 @@ function calculate(expression, value) {
     for (let i = 0; i < coefsOfX.length; i++) {
         units[i] = multiplyFractions(signsOfX[i], coefsOfX[i], '+', Math.pow(value, powersOfX[i]));
     }
-    
+
     let finalSign = signsOfX[0];
     let finalCoef = units[0];
     let finalCoefIsNotZero = true;
+
     if (finalSign == undefined) {
         finalSign = '+';
         finalCoef = '0/1';
         finalCoefIsNotZero = false;
     }
     for (let i = 1; i < coefsOfX.length && finalCoefIsNotZero; i++) {
+
         let sumedUpFractionObj = sumFractions(
             finalSign, 
             finalCoef, 
@@ -110,7 +112,9 @@ function calculate(expression, value) {
 
     if (finalCoef == null && numbers.length == 0) {
         return '';
-    }
+    }   
+
+    if (finalCoef == 1) finalCoef ='1/1';
 
     if (numbers.length == 0) {
         if (finalSign == '-') finalSign = '';
@@ -119,7 +123,7 @@ function calculate(expression, value) {
         return answer.replace(/^\+/, '');
     }
     
-    answer = sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction;
+    answer = getExpressionInDecimals(sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction);
     // answer = simplifyFractions(answer);
 
     return answer;
@@ -903,7 +907,7 @@ function processExpressionForCompare(expression) {
     return xExpression;
 }
 
-
+console.log(compareCalculations('1.333', '4/6x', '2'))
 
 
 const _derivativeOf = derivativeOf;
