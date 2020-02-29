@@ -111,7 +111,7 @@ function calculate(expression, value) {
     }
 
     if (finalCoef == null && numbers.length == 0) {
-        return '';
+        return 0;
     }   
 
     if (finalCoef == 1) finalCoef ='1/1';
@@ -905,9 +905,6 @@ function processExpressionForCompare(expression) {
 
     return xExpression;
 }
-
-console.log(compareCalculations('1.333', '4/6x', '2'))
-
 
 const _derivativeOf = derivativeOf;
 export { _derivativeOf as derivativeOf };
