@@ -115,12 +115,12 @@ function calculate(expression, value) {
     if (numbers.length == 0) {
         if (finalSign == '-') finalSign = '';
         answer = finalSign + finalCoef;
-        answer = simplifyFractions(answer);
+        // answer = simplifyFractions(answer);
         return answer.replace(/^\+/, '');
     }
     
     answer = sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction;
-    answer = simplifyFractions(answer);
+    // answer = simplifyFractions(answer);
 
     return answer;
 }
@@ -918,3 +918,5 @@ const _compareCalculations = compareCalculations;
 export { _compareCalculations as compareCalculations };
 const _compareIntegrals = compareIntegrals;
 export { _compareIntegrals as compareIntegrals };
+const _fractionToDecimal = fractionToDecimal;
+export {_fractionToDecimal as fractionToDecimal};
