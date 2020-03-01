@@ -31,7 +31,7 @@ function derive(expression) {
 
         derivedPower = Number(powers[i]) - 1;
         if (coefs[i] == 1) coefs[i] += '/1';
-        
+
         derivedCoef = multiplyFractions(signs[i], coefs[i], '+', powers[i] + '/1');
         switch (derivedPower) {
             case 0:
@@ -61,23 +61,18 @@ function derive(expression) {
     return derivedExpression.replace(/^\+/, '');
 }
 
-/**
- * Takes an expression written in such a way: (x^2 + 4x^4 - 12) 
- * and looks for x's with a power and ordinary numbers through out two
- * separate functions: getPolynomialWithX and getNumbers
- */
-
 function calculate(expression, value) {
 
     let fractionalExpression = getExpressionInFractions(expression);
     let xExtractor = getPolynomialWithX(fractionalExpression);
-    let signsOfX = xExtractor.sObj.signs; 
+    let signsOfX = xExtractor.sObj.signs;
     let coefsOfX = xExtractor.cObj.coef;
     let powersOfX = xExtractor.pObj.powers;
     signsOfX = turnNullToPlus(signsOfX);
+
     let numberExtractor = getNumbers(fractionalExpression);
     let numbers = numberExtractor.nObj.numbers;
-    let signsOfNumbers = numberExtractor.sObj.signs; 
+    let signsOfNumbers = numberExtractor.sObj.signs;
     signsOfNumbers = turnNullToPlus(signsOfNumbers);
 
     let answer;
@@ -99,9 +94,9 @@ function calculate(expression, value) {
     for (let i = 1; i < coefsOfX.length && finalCoefIsNotZero; i++) {
 
         let sumedUpFractionObj = sumFractions(
-            finalSign, 
-            finalCoef, 
-            signsOfX[i], 
+            finalSign,
+            finalCoef,
+            signsOfX[i],
             units[i]
         );
         finalSign = sumedUpFractionObj.signOfFraction;
@@ -112,9 +107,9 @@ function calculate(expression, value) {
 
     if (finalCoef == null && numbers.length == 0) {
         return 0;
-    }   
+    }
 
-    if (finalCoef == 1) finalCoef ='1/1';
+    if (finalCoef == 1) finalCoef = '1/1';
 
     if (numbers.length == 0) {
         if (finalSign == '-') finalSign = '';
@@ -122,28 +117,20 @@ function calculate(expression, value) {
         answer = getExpressionInDecimals(answer);
         return answer.replace(/^\+/, '');
     }
-    
+
     answer = getExpressionInDecimals(sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction);
 
     return answer;
 }
 
-/**
- * Takes an expression written in such a way: (x^2 + 4x^4 - 12)
- * and looks for x's with a power and ordinary numbers through out two
- * separate functions: getPolynomialWithX and getNumbers
- * and returns indefinite integral as the answer
- */
-
 function integralOf(expression) {
-
-    // WORKING ON X's
 
     let fractionalExpression = getExpressionInFractions(expression);
     let xExtractor = getPolynomialWithX(fractionalExpression);
     let coefsOfX = xExtractor.cObj.coef;
     let powersOfX = xExtractor.pObj.powers;
-    let signsOfX = xExtractor.sObj.signs; 
+    let signsOfX = xExtractor.sObj.signs;
+
     let integratedExpression = '';
     let integratedPower;
     let integratedUnit;
@@ -158,8 +145,6 @@ function integralOf(expression) {
     }
 
     let answer = integratedExpression;
-
-    // WORKING ON NUMBERS
 
     let numberExtractor = getNumbers(fractionalExpression);
     let numbers = numberExtractor.nObj.numbers;
@@ -302,7 +287,7 @@ function getNumbers(expression) {
 function getExpressionInDecimals(expression) {
 
     const units = expression.split(/\s*\+\s*|\s*-\s*/);
-    if (units[0] == '') units.splice(0,1);
+    if (units[0] == '') units.splice(0, 1);
 
     const coefs = getPolynomialWithX(expression).cObj.coef;
     const signsOfCoefs = getPolynomialWithX(expression).sObj.signs;
@@ -313,10 +298,13 @@ function getExpressionInDecimals(expression) {
     let n = 0;
     let newExpression = '';
     for (let i = 0; i < units.length; i++) {
+
         if (units[i].includes('x')) {
+
             if (coefs[c] == 1) units[i] = '1' + units[i];
-            switch(numberType(coefs[c] )) {
-                case 'decimal': 
+
+            switch (numberType(coefs[c])) {
+                case 'decimal':
                     units[i] = signsOfCoefs[c++] + units[i];
                     break;
                 case 'integer':
@@ -327,8 +315,8 @@ function getExpressionInDecimals(expression) {
                     break;
             }
         } else {
-            switch(numberType(units[i])) {
-                case 'decimal': 
+            switch (numberType(units[i])) {
+                case 'decimal':
                     units[i] = singsOfNumbers[n] + numbers[n++];
                     break;
                 case 'integer':
@@ -361,9 +349,9 @@ function fractionToDecimal(fraction) {
     let firstTime = true;
     while (numerator != 0 && maxNumberOfDecimalPlaces >= 0) {
 
-        remainder = Math.trunc(numerator/denominator);
+        remainder = Math.trunc(numerator / denominator);
         if (firstTime) {
-            if (remainder*denominator == numerator) return (numerator/denominator).toString();
+            if (remainder * denominator == numerator) return (numerator / denominator).toString();
             decimalValue = remainder + '.';
             firstTime = false;
         } else decimalValue += remainder.toString();
@@ -391,7 +379,7 @@ function isTooBig(number) {
 function getExpressionInFractions(expression) {
 
     const units = expression.split(/\s*\+\s*|\s*-\s*/);
-    if (units[0] == '') units.splice(0,1);
+    if (units[0] == '') units.splice(0, 1);
 
     const coefs = getPolynomialWithX(expression).cObj.coef;
     const signsOfCoefs = getPolynomialWithX(expression).sObj.signs;
@@ -404,9 +392,10 @@ function getExpressionInFractions(expression) {
     let newExpression = '';
     for (let i = 0; i < units.length; i++) {
         if (units[i].includes('x')) {
+
             if (coefs[c] == 1) units[i] = '1' + units[i];
-            switch(numberType(coefs[c])) {
-                case 'decimal': 
+            switch (numberType(coefs[c])) {
+                case 'decimal':
                     units[i] = signsOfCoefs[c] + units[i].replace(coefs[c], decimalToFraction(coefs[c++]));
                     break;
                 case 'integer':
@@ -417,8 +406,8 @@ function getExpressionInFractions(expression) {
                     break;
             }
         } else {
-            switch(numberType(units[i])) {
-                case 'decimal': 
+            switch (numberType(units[i])) {
+                case 'decimal':
                     units[i] = singsOfNumbers[n] + decimalToFraction(numbers[n++]);
                     break;
                 case 'integer':
@@ -445,14 +434,16 @@ function numberType(coef) {
 function decimalToFraction(number) {
 
     let fraction;
-    let decimalPlaces = 0;
+    let numberOfDecimalPlaces = 0;
     let decimalPart = 0;
     let intPart = 0;
-    decimalPlaces = number.toString().split('.')[1].length;
+
+    numberOfDecimalPlaces = number.toString().split('.')[1].length;
     decimalPart = number.toString().split('.')[1];
     intPart = number.toString().split('.')[0];
+
     if (intPart == 0) intPart = '';
-    fraction = intPart + '' + decimalPart + '/' + Math.pow(10, decimalPlaces);
+    fraction = intPart + '' + decimalPart + '/' + Math.pow(10, numberOfDecimalPlaces);
 
     return fraction;
 }
@@ -461,35 +452,9 @@ function integerToFraction(number) {
     return number + '/1';
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-function simplify(expression) {
-
-    let fractionalExpression = getExpressionInFractions(expression);
-    let expressionWithX = getPolynomialWithX(fractionalExpression);
-    
-    let coefsOfX = expressionWithX.cObj.coef;
-    let powersOfX = expressionWithX.pObj.powers;
-    let signsOfX = expressionWithX.sObj.signs;
-    let numbersExpression = getNumbers(fractionalExpression);
-    let numbers = numbersExpression.nObj.numbers;
-    let signsOfNumbers = numbersExpression.sObj.signs;
-
-    signsOfX = turnNullToPlus(signsOfX);
-    signsOfNumbers = turnNullToPlus(signsOfNumbers);
-    let simplifiedFractional = simplifyFractions(sumUpXFractions(signsOfX, coefsOfX, powersOfX)) + simplifyFractions(sumUpNumbers(numbers, signsOfNumbers));
-    if (simplifiedFractional.includes('NaN')) {
-        simplifiedFractional = '';
-    }
-    let simplifiedDecimal = getExpressionInDecimals(simplifiedFractional);
-
-    return {
-        "simplifiedFractional": simplifiedFractional.replace(/^\+/, ''),
-        "simplifiedDecimal": simplifiedDecimal.replace(/^\+/,'')
-    };
-    
-}
+//
+// SIMPLIFY HELPERS
+//
 
 function turnNullToPlus(signs) {
     for (let i = 0; i < signs.length; i++) {
@@ -535,7 +500,7 @@ function getSamePowers(powersOfX) {
     }
 
     return {
-        "equalPowersPositions": equalPowersPositions, // returns 2D array
+        "equalPowersPositions": equalPowersPositions,
         "equalPowers": equalPowers
     };
 }
@@ -579,9 +544,9 @@ function sumUpSamePowersFractions(signsOfXFractions, coefsOfFractions, powersOfF
         let finalCoef = coefsOfFractions[samePowersPositions[i][0]];
         for (let j = 1; j < samePowersPositions[i].length; j++) {
             let sumedUpFractionObj = sumFractions(
-                finalSign, 
-                finalCoef, 
-                signsOfXFractions[samePowersPositions[i][j]], 
+                finalSign,
+                finalCoef,
+                signsOfXFractions[samePowersPositions[i][j]],
                 coefsOfFractions[samePowersPositions[i][j]]
             );
 
@@ -608,7 +573,7 @@ function sumUpSamePowersFractions(signsOfXFractions, coefsOfFractions, powersOfF
         "samePowersPositions": samePowersPositions
     };
 }
-    
+
 function sumUpXFractions(signsOfXFractional, coefsOfXFractional, powersOfXFractional) {
 
     let sumUpSamePowersDecimalsObj = sumUpSamePowersFractions(signsOfXFractional, coefsOfXFractional, powersOfXFractional);
@@ -631,10 +596,10 @@ function sumUpXFractions(signsOfXFractional, coefsOfXFractional, powersOfXFracti
 }
 
 function sumUpNumbers(numbers, signsOfNumbers) {
-    
+
     if (numbers.length == 0) return '';
 
-    let finalSign =  signsOfNumbers[0];
+    let finalSign = signsOfNumbers[0];
     let finalNumber = numbers[0];
     for (let i = 1; i < numbers.length; i++) {
         let sumedUpFractionObj = sumFractions(
@@ -643,12 +608,12 @@ function sumUpNumbers(numbers, signsOfNumbers) {
             signsOfNumbers[i],
             numbers[i]
         );
-        
+
         finalSign = sumedUpFractionObj.signOfFraction;
         finalNumber = sumedUpFractionObj.fraction;
     }
 
-    if (finalSign == '-') finalSign = '';
+    if (finalSign == '-' && finalNumber.includes('-')) finalSign = '';
 
     return finalSign + finalNumber;
 }
@@ -663,6 +628,38 @@ function GCD(a, b) {
     return b;
 }
 
+//
+// SIMPLIFY BLOCK
+//
+
+
+function simplify(expression) {
+
+    let fractionalExpression = getExpressionInFractions(expression);
+    let expressionWithX = getPolynomialWithX(fractionalExpression);
+
+    let coefsOfX = expressionWithX.cObj.coef;
+    let powersOfX = expressionWithX.pObj.powers;
+    let signsOfX = expressionWithX.sObj.signs;
+    let numbersExpression = getNumbers(fractionalExpression);
+    let numbers = numbersExpression.nObj.numbers;
+    let signsOfNumbers = numbersExpression.sObj.signs;
+    signsOfX = turnNullToPlus(signsOfX);
+    signsOfNumbers = turnNullToPlus(signsOfNumbers);
+
+    let simplifiedFractional = simplifyFractions(sumUpXFractions(signsOfX, coefsOfX, powersOfX)) + simplifyFractions(sumUpNumbers(numbers, signsOfNumbers));
+    if (simplifiedFractional.includes('NaN')) {
+        simplifiedFractional = '';
+    }
+    let simplifiedDecimal = getExpressionInDecimals(simplifiedFractional);
+
+    return {
+        "simplifiedFractional": simplifiedFractional.replace(/^\+/, ''),
+        "simplifiedDecimal": simplifiedDecimal.replace(/^\+/, '')
+    };
+
+}
+
 function simplifyFractions(expression) {
 
     const reg = /(\d+)\/(\d+)/g;
@@ -675,7 +672,7 @@ function simplifyFractions(expression) {
     let match;
     while ((match = reg.exec(expression)) != null) {
         numerators[N++] = match[1];
-       denominators[D++] = match[2];
+        denominators[D++] = match[2];
     }
 
     let fixedNumerator;
@@ -687,17 +684,15 @@ function simplifyFractions(expression) {
         fixedDenominator = Number(denominators[i]) / gcd;
 
         if (fixedDenominator == 1) expression = expression.replace(numerators[i] + '/' + denominators[i], fixedNumerator);
-        
+
         expression = expression.replace(numerators[i] + '/' + denominators[i], fixedNumerator + '/' + fixedDenominator);
     }
 
     return expression;
 }
 
-/////////////////////////////////////////////////////////////////
-
 //
-// FRACTION OPERATIONS
+// FRACTION OPERATORS
 //
 
 function sumFractions(signf1, f1, signf2, f2) {
@@ -710,12 +705,12 @@ function sumFractions(signf1, f1, signf2, f2) {
     let numAndDenomf1 = reg.exec(f1);
     let num1 = Number(numAndDenomf1[1]);
     let denom1 = Number(numAndDenomf1[2]);
-    
+
     let numAndDenomf2 = reg.exec(f2);
     let num2 = Number(numAndDenomf2[1]);
     let denom2 = Number(numAndDenomf2[2]);
-    
-    
+
+
     let finalNumerator1;
     let finalNumerator2;
     if (signf1 == '+') {
@@ -755,7 +750,7 @@ function multiplyFractions(signf1, f1, signf2, f2) {
     let numAndDenomf1 = reg.exec(f1);
     let num1 = Number(numAndDenomf1[1]);
     let denom1 = Number(numAndDenomf1[2]);
-    
+
     let numAndDenomf2 = reg.exec(f2);
     let num2 = Number(numAndDenomf2[1]);
     let denom2 = Number(numAndDenomf2[2]);
@@ -778,13 +773,12 @@ function devideFractions(signf1, f1, signf2, f2) {
     let num2 = Number(numAndDenomf2[1]);
     let denom2 = Number(numAndDenomf2[2]);
     f2 = denom2 + '/' + num2;
-    
 
     return multiplyFractions(signf1, f1, signf2, f2);
 }
 
 //
-//
+// COMPARE FUNCTIONS
 //
 
 function compareDerivatives(userAnswer, func) {
@@ -793,17 +787,21 @@ function compareDerivatives(userAnswer, func) {
 }
 
 function compareCalculations(userAnswer, func, value) {
+
     const correctCalculation = simplify(calculate(func, value));
     const correctCalculationFractional = correctCalculation.simplifiedFractional;
     const correctCalculationDecimal = correctCalculation.simplifiedDecimal;
     const userAnswerSimplified = simplify(userAnswer);
     const userAnswerFractional = userAnswerSimplified.simplifiedFractional;
     const userAnswerDecimal = userAnswerSimplified.simplifiedDecimal;
+
     if (correctCalculationDecimal == userAnswerDecimal ||
         correctCalculationFractional == userAnswerFractional) {
         return true;
     } else return false;
 }
+
+console.log(derivativeOf('32/20x^20-8x'));
 
 function compareIntegrals(userAnswer, func) {
     const correctIntegral = integralOf(func);
@@ -839,10 +837,10 @@ function compare(userAnswer, correctAnswer) {
     for (let i = 0; i < usersExpressionXDecimal.length; i++) {
         for (let j = 0; j < correctExpressionXDecimal.length; j++) {
             if (
-                usersExpressionXDecimal[i] == correctExpressionXDecimal[j] || 
+                usersExpressionXDecimal[i] == correctExpressionXDecimal[j] ||
                 usersExpressionXFractional[i] == correctExpressionXFractional[j]
-                ) {
-                    numberOfElementsRemaining--;
+            ) {
+                numberOfElementsRemaining--;
             }
         }
     }
@@ -853,13 +851,13 @@ function compare(userAnswer, correctAnswer) {
 
     return expressionsAreEqual;
 }
-      
+
 function numbersNotEqual(
     userAnswerDecimal,
     userAnswerFractional,
     correctAnswerDecimal,
     correctAnswerFractional
-    ) {
+) {
 
     let numberOfUserDecimal = getNumbers(userAnswerDecimal).sObj.signs[0] + getNumbers(userAnswerDecimal).nObj.numbers[0];
     let numberOfUserFractional = getNumbers(userAnswerFractional).sObj.signs[0] + getNumbers(userAnswerFractional).nObj.numbers[0];
@@ -878,10 +876,11 @@ function numbersNotEqual(
     }
 
     if (
-        Number(numberOfUserDecimal) == Number(correctNumberDecimal) || 
+        Number(numberOfUserDecimal) == Number(correctNumberDecimal) ||
         numberOfUserFractional == correctNumberFractional
-        )
-        {return false;} else return true;
+    ) {
+        return false;
+    } else return true;
 }
 
 function processExpressionForCompare(expression) {
@@ -907,16 +906,29 @@ function processExpressionForCompare(expression) {
 }
 
 const _derivativeOf = derivativeOf;
-export { _derivativeOf as derivativeOf };
+export {
+    _derivativeOf as derivativeOf
+};
 const _calculate = calculate;
-export { _calculate as calculate };
+export {
+    _calculate as calculate
+};
 const _integralOf = integralOf;
-export { _integralOf as integralOf };
+export {
+    _integralOf as integralOf
+};
 const _compareDerivatives = compareDerivatives;
-export { _compareDerivatives as compareDerivatives };
+export {
+    _compareDerivatives as compareDerivatives
+};
 const _compareCalculations = compareCalculations;
-export { _compareCalculations as compareCalculations };
+export {
+    _compareCalculations as compareCalculations
+};
 const _compareIntegrals = compareIntegrals;
-export { _compareIntegrals as compareIntegrals };
+export {
+    _compareIntegrals as compareIntegrals
+};
 const _fractionToDecimal = fractionToDecimal;
-export {_fractionToDecimal as fractionToDecimal};
+export {
+    _fractionToDecimal as fractionToDecimal};
