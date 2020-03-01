@@ -4,14 +4,13 @@ import {
   compareCalculations,
   calculate,
   integralOf,
-  compareIntegrals,
-  fractionToDecimal
+  compareIntegrals
 } from "../util/math";
 
 import { showMessage } from "react-native-flash-message";
 
 export const damageHealth = (health, setHealth, damage, setGameOver, isP1) => {
-  const newHealth = health - Math.abs(fractionToDecimal(damage));
+  const newHealth = health - Math.abs(damage);
   setHealth(newHealth);
   if (newHealth <= 0) {
     alert(isP1 ? "You Lost..." : "You Won!");
