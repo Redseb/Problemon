@@ -1,7 +1,6 @@
 const extractXReg = /\s*([\+|-]*)\s*(\d+\/\d+|\d+\.\d+|\d+)*x\^*(\d+)*\s*/g;
 const extractNumberReg = /\s*([\+|-]*)\s*(\d+\/\d+|\d+\.\d+|\d+)\s*/g;
 
-
 //
 // MAIN FUNCTIONS
 //
@@ -31,10 +30,10 @@ function derive(expression) {
 
         derivedPower = Number(powers[i]) - 1;
         if (coefs[i] == 1) coefs[i] += '/1';
-
         derivedCoef = multiplyFractions(signs[i], coefs[i], '+', powers[i] + '/1');
         switch (derivedPower) {
             case 0:
+                if (signs[i] == '-' && derivedCoef == -1) signs[i] = '';
                 derivedExpressionArray[i] = signs[i] + derivedCoef;
                 break;
             case 1:
@@ -55,7 +54,6 @@ function derive(expression) {
     for (let i = 0; i < derivedExpressionArray.length; i++) {
         derivedExpression += derivedExpressionArray[i];
     }
-
     derivedExpression = simplify(derivedExpression).simplifiedFractional;
 
     return derivedExpression.replace(/^\+/, '');
@@ -102,11 +100,14 @@ function calculate(expression, value) {
         finalSign = sumedUpFractionObj.signOfFraction;
         if (sumedUpFractionObj.fraction != '') {
             finalCoef = sumedUpFractionObj.fraction;
-        } else finalCoef = '0/1';
-    }
+        } else {
+            finalCoef = '0/1';
+        }
 
-    if (finalCoef == null && numbers.length == 0) {
-        return 0;
+    }
+    
+    if ((finalCoef == null  || finalCoef == '0/1') && numbers.length == 0) {
+        return '0';
     }
 
     if (finalCoef == 1) finalCoef = '1/1';
@@ -119,7 +120,7 @@ function calculate(expression, value) {
     }
 
     answer = getExpressionInDecimals(sumFractions(finalSign, finalCoef, signsOfNumbers[0], numbers[0]).fraction);
-
+    if (answer == '') answer = '0';
     return answer;
 }
 
@@ -760,7 +761,9 @@ function multiplyFractions(signf1, f1, signf2, f2) {
         finalNumerator = num1 * num2;
     } else finalNumerator = Number(-num1 * num2);
     if (finalNumerator == Number(denom1 * denom2)) return 1;
-    if (Number(finalNumerator.toString().replace(/^-/, '')) == Number(denom1 * denom2)) return -1;
+    if (Number(finalNumerator.toString().replace(/^-/, '')) == Number(denom1 * denom2)) {
+        
+        return -1;}
     if (finalNumerator < 0) finalNumerator = finalNumerator.toString().replace(/^-/, '');
     return finalNumerator + '/' + Number(denom1 * denom2);
 }
@@ -789,19 +792,20 @@ function compareDerivatives(userAnswer, func) {
 function compareCalculations(userAnswer, func, value) {
 
     const correctCalculation = simplify(calculate(func, value));
-    const correctCalculationFractional = correctCalculation.simplifiedFractional;
-    const correctCalculationDecimal = correctCalculation.simplifiedDecimal;
+    let correctCalculationFractional = correctCalculation.simplifiedFractional;
+    let correctCalculationDecimal = correctCalculation.simplifiedDecimal;
     const userAnswerSimplified = simplify(userAnswer);
     const userAnswerFractional = userAnswerSimplified.simplifiedFractional;
     const userAnswerDecimal = userAnswerSimplified.simplifiedDecimal;
-
+    if (correctCalculationDecimal == '') {
+        correctCalculationDecimal = '0';
+        correctCalculationFractional = '0';
+    }
     if (correctCalculationDecimal == userAnswerDecimal ||
         correctCalculationFractional == userAnswerFractional) {
         return true;
     } else return false;
 }
-
-console.log(derivativeOf('32/20x^20-8x'));
 
 function compareIntegrals(userAnswer, func) {
     const correctIntegral = integralOf(func);
@@ -904,6 +908,8 @@ function processExpressionForCompare(expression) {
 
     return xExpression;
 }
+
+console.log(calculate('1/2x^2-3x', '6'));
 
 const _derivativeOf = derivativeOf;
 export {
